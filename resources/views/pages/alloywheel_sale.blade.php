@@ -70,8 +70,22 @@
                      </legend>
                      <form role="form">
                         <div class="card-body">
-                           <div class="row">
+                        <div class="row">
                                <!-- Date -->
+                               <div class="form-group col-md-6">
+                              <label>Emp No:</label>
+                                    <select class="form-control select2" >
+                                    <option selected="selected">Dealer</option>
+                                       <option>emp-001</option>
+                                       <option>emp-002</option>
+                                       <option>emp-003</option>
+                                       <option>emp-004</option>
+                                    </select>
+                              </div>
+                              <div class="form-group col-md-6">
+                                    <label>Invoice No:</label> <lable class="req-message">Required Message</lable>
+                                    <input type="text" class="form-control" id="id_no" placeholder="Invoice number">
+                              </div>
                                 <div class="form-group col-md-6">
                                     <label>Sold date:</label>
                                     <div class="input-group date">
@@ -87,16 +101,16 @@
                               <div class="form-group col-md-6">
                               <label>Select vehicle No:</label>
                                     <select class="form-control select2" >
-                                       <option selected="selected">WP BFT-0894</option>
-                                       <option>WP JD-1485</option>
-                                       <option>WP GT-5698</option>
-                                       <option>CP YT-1498</option>
+                                       <option selected="selected">WP BFT-0894 | 922251568V</option>
+                                       <option>WP JD-1485 | 882251568V</option>
+                                       <option>WP GT-5698 | 722251568V</option>
+                                       <option>CP YT-1498 | 622251568V</option>
                                     </select>
                               </div>
                             </div>
                             <hr>
                             <div class="row">
-                                 <div class="form-group col-md-4">
+                                 <div class="form-group col-md-3">
                                     <label for="exampleInputFile">Model</label>
                                     <div class="form-check">
                                        <input class="form-check-input" type="radio" name="radio2" checked="">
@@ -110,6 +124,9 @@
                                        <input class="form-check-input" type="radio" name="radio2" checked="">
                                        <label class="form-check-label">MD03</label>
                                     </div>
+                                 </div>
+                                 <div class="form-group col-md-3">
+                                    <label for="exampleInputFile">&nbsp;</label>                               
                                     <div class="form-check">
                                        <input class="form-check-input" type="radio" name="radio2" checked="">
                                        <label class="form-check-label">MD04</label>
@@ -123,13 +140,13 @@
                                        <label class="form-check-label">MD06</label>
                                     </div>
                                  </div>
-                                 <div class="form-group col-md-4">
+                                 <div class="form-group col-md-6">
                                     <label for="exampleInputFile">Tyre count</label>
                                     <div class="form-group">
                                        <input type="number" class="form-control" placeholder="Count">
                                     </div>
                                     </div>
-                                 <div class="form-group col-md-4">
+                                 <div class="form-group col-md-6">
                                     <label for="exampleInputFile">Qty price</label>
                                     <div class="form-group">
                                        <input type="text" class="form-control price-align" placeholder="00.00">
