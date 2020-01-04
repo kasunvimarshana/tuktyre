@@ -23,6 +23,8 @@
                         <h3>Details of Purchased items</h3>
                      </legend>
                      <div class="form-group col-md-6">
+                           <label>NIC No: 922251568V</label>
+                           <br>
                             <label>Vehicle No: WP BFT-0894</label>
                             <br>
                             <label>Client name: W.A.S. Kamal Udawaththa</label>
@@ -52,19 +54,19 @@
                            </tr>
                         </thead>
                         <tbody>
-                           <tr>
+                           <tr class="danger">
                               <td>748</td>
                               <td>Tyre</td>
                               <td>DSI - 450/12</td>
-                              <td>00</td>
-                              <td>Completed</td>
+                              <td>2000</td>
+                              <td>Not Completed</td>
                            </tr>
-                           <tr>
+                           <tr class="success">
                               <td>845</td>
                               <td>Battery</td>
                               <td>Exide - 9v 65ah</td>
-                              <td>2200</td>
-                              <td>Not Completed</td>
+                              <td>00</td>
+                              <td>Completed</td>
                            </tr>
                      </table>
                   </fieldset>
@@ -78,18 +80,26 @@
                      <form role="form">
                         <div class="card-body">
                            <div class="row">
-                               
-                                
-                              <div class="form-group col-md-6">
+                           <div class="form-group col-md-6">
                               <label>Select vehicle No:</label>
                                     <select class="form-control select2" >
-                                       <option selected="selected">WP BFT-0894</option>
-                                       <option>WP JD-1485</option>
-                                       <option>WP GT-5698</option>
-                                       <option>CP YT-1498</option>
+                                       <option selected="selected">WP BFT-0894 | 922251568V</option>
+                                       <option>WP JD-1485 | 882251568V</option>
+                                       <option>WP GT-5698 | 722251568V</option>
+                                       <option>CP YT-1498 | 622251568V</option>
                                     </select>
                               </div>
-                              <!-- Date -->
+                           <div class="form-group col-md-6">
+                              <label>Emp No:</label>
+                                    <select class="form-control select2" >
+                                       <option selected="selected">Dealer</option>
+                                       <option>emp-001</option>
+                                       <option>emp-002</option>
+                                       <option>emp-003</option>
+                                       <option>emp-004</option>
+                                    </select>
+                              </div>
+                              
                               <div class="form-group col-md-6">
                               <label>Invoice No:</label>
                                     <select class="form-control select2" >
@@ -97,6 +107,13 @@
                                        <option>845</option>
                                     </select>
                               </div>
+                     
+                              
+                              
+                              
+
+
+
                             </div>
                             <hr>
                             <div class="row">

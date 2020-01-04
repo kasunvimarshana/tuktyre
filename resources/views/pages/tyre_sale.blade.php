@@ -87,6 +87,20 @@
                         <div class="card-body">
                            <div class="row">
                                <!-- Date -->
+                               <div class="form-group col-md-6">
+                              <label>Emp No:</label>
+                                    <select class="form-control select2" >
+                                    <option selected="selected">Dealer</option>
+                                       <option>emp-001</option>
+                                       <option>emp-002</option>
+                                       <option>emp-003</option>
+                                       <option>emp-004</option>
+                                    </select>
+                              </div>
+                              <div class="form-group col-md-6">
+                                    <label>Invoice No:</label> <lable class="req-message">Required Message</lable>
+                                    <input type="text" class="form-control" id="id_no" placeholder="Invoice number">
+                              </div>
                                 <div class="form-group col-md-6">
                                     <label>Sold date:</label>
                                     <div class="input-group date">
@@ -102,10 +116,10 @@
                               <div class="form-group col-md-6">
                               <label>Select vehicle No:</label>
                                     <select class="form-control select2" >
-                                       <option selected="selected">WP BFT-0894</option>
-                                       <option>WP JD-1485</option>
-                                       <option>WP GT-5698</option>
-                                       <option>CP YT-1498</option>
+                                       <option selected="selected">WP BFT-0894 | 922251568V</option>
+                                       <option>WP JD-1485 | 882251568V</option>
+                                       <option>WP GT-5698 | 722251568V</option>
+                                       <option>CP YT-1498 | 622251568V</option>
                                     </select>
                               </div>
                             </div>

@@ -156,16 +156,14 @@
                 </legend>
                 <form role="form">
                     <div class="card-body">
-                    <div class="form-group col-md-6">
-                        <p class="req-message">Required message</p>
-                        <input type="text" class="form-control" id="id_no" placeholder="Invoice number">
-                    </div>
+                    
                     <div class="form-group col-md-6">
                         <p class="req-message">Required message</p>
                         <input type="text" class="form-control" id="id_no" placeholder="NID number">
                     </div>
+                    
                     <div class="form-group col-md-6">
-                        <p class="req-message">Required message</p>
+                        <p class="non-req-message">Optional</p>
                         <input type="text" class="form-control" id="vehical_no" placeholder="License number">
                     </div>
                     <div class="form-group col-md-6">

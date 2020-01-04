@@ -407,3 +407,19 @@ label {
 .price-align{
     text-align: right;
 }
+.user img{
+    margin: 14px 33px;
+    width: 80px;
+    height: 80px;
+}
+input, button, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    font-size: 11px;
+    padding: 0 10px;
+}
+.dataTables_wrapper {
+    padding-left: 0px;
+    margin-top: 90px;
+}
