@@ -35,12 +35,15 @@ class CreateStatusesTable extends Migration
             //$table->string('colour_id')->index()->nullable()->comment('comment');
             $table->string('slug')->index()->nullable()->comment('comment'); // create-table
             $table->string('code')->index()->nullable()->comment('comment');
-            $table->string('name')->index()->nullable()->comment('comment');
-            $table->string('display_name')->index()->nullable()->comment('comment');
+            $table->string('key_name')->index()->nullable()->comment('comment');
+            $table->string('key_value')->index()->nullable()->comment('comment');
             //$table->text('image_uri')->nullable()->default(null)->comment('uniform resource identifier'); 
             $table->unsignedBigInteger('status_id_parent')->unsigned()->index()->nullable()->comment('comment');
             //$table->timestamp('time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
+            //$table->nullableMorphs('morph');
             //$table->softDeletes();
+            //$table->dropPrimary('id');
+            //$table->primary('id');
         });
         
         Schema::table($this->table_name_1, function($table) {
