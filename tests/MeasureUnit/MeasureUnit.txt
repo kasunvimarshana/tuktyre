@@ -1,0 +1,8 @@
+Unit name	Unit symbol	Quantity name	Quantity symbol	Dimension symbol
+meter	m	length	l, x, r	L
+kilogram[1]	kg	mass	m	M
+second	s	time	t	T
+ampere	A	electric current	I	I
+kelvin	K	thermodynamic temperature	T	Θ
+candela	cd	luminous intensity	Iv	J
+mole	mol	amount of substance	n	N
