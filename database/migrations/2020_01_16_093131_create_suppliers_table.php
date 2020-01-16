@@ -7,9 +7,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class CreateActivitiesTable extends Migration
+class CreateSuppliersTable extends Migration
 {
-    protected $table_name_1 = "activities";
+    protected $table_name_1 = "suppliers";
     /**
      * Run the migrations.
      *
@@ -32,14 +32,10 @@ class CreateActivitiesTable extends Migration
             //$table->unsignedBigInteger('pk')->nullable()->default(0)->comment('comment');
             $table->boolean('is_visible')->index()->nullable()->default(false)->comment('comment');
             $table->boolean('is_active')->index()->nullable()->default(false)->comment('comment');
-            //$table->string('colour_id')->index()->nullable()->comment('comment');
-            $table->string('slug')->index()->nullable()->comment('comment'); // create-table
-            $table->string('code')->index()->nullable()->comment('comment');
-            $table->string('key_id')->index()->nullable()->comment('comment');
-            $table->string('key_value')->index()->nullable()->comment('comment');
-            //$table->text('image_uri')->nullable()->default(null)->comment('uniform resource identifier'); 
+            $table->unsignedBigInteger('user_id')->unsigned()->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('activity_id_parent')->unsigned()->index()->nullable()->comment('comment');
+            $table->unsignedBigInteger('company_id')->unsigned()->index()->nullable()->comment('comment');
+            $table->unsignedBigInteger('strategic_business_unit_id')->unsigned()->index()->nullable()->comment('comment');
         });
         
         Schema::table($this->table_name_1, function($table) {
@@ -70,4 +66,3 @@ class CreateActivitiesTable extends Migration
         Schema::dropIfExists($this->table_name_1);
     }
 }
-

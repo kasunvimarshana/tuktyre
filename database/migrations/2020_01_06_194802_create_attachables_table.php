@@ -41,6 +41,7 @@ class CreateAttachablesTable extends Migration
             $table->string('mime_type')->index()->nullable()->comment('comment');
             $table->string('type')->index()->nullable()->comment('comment');
             $table->double('size')->index()->nullable()->default(0)->comment('comment');
+            $table->binary('data')->nullable()->comment('comment');
         });
         
         Schema::table($this->table_name_1, function($table) {

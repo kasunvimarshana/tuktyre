@@ -35,7 +35,7 @@ class CreateTransactionTypesTable extends Migration
             //$table->string('colour_id')->index()->nullable()->comment('comment');
             $table->string('slug')->index()->nullable()->comment('comment'); // create-table
             $table->string('code')->index()->nullable()->comment('comment');
-            $table->string('key_name')->index()->nullable()->comment('comment');
+            $table->string('key_id')->index()->nullable()->comment('comment');
             $table->string('key_value')->index()->nullable()->comment('comment');
             //$table->text('image_uri')->nullable()->default(null)->comment('uniform resource identifier'); 
             $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
