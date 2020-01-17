@@ -33,8 +33,8 @@ class CreateCreditCustomersTable extends Migration
             $table->boolean('is_visible')->index()->nullable()->default(false)->comment('comment');
             $table->boolean('is_active')->index()->nullable()->default(false)->comment('comment');
             $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->nullableMorphs('cashable');
-            //$table->nullableMorphs('referenceable');
+            $table->unsignedBigInteger('user_id')->unsigned()->index()->nullable()->comment('comment');
+            $table->nullableMorphs('referenceable');
             $table->enum('sign', ['+', '-'])->index()->nullable()->comment('comment');
             $table->double('amount')->index()->nullable()->default(0)->comment('comment');
             $table->double('sign_amount')->index()->nullable()->default(0)->comment('comment');
@@ -71,39 +71,5 @@ class CreateCreditCustomersTable extends Migration
     public function down()
     {
         Schema::dropIfExists($this->table_name_1);
-    }
-}
-
-
-
-
-
-
-
-
-
-class CreateCreditCustomersTable extends Migration
-{
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('credit_customers', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('credit_customers');
     }
 }

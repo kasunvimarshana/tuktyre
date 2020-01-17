@@ -38,10 +38,12 @@ class CreateCashesTable extends Migration
             $table->enum('sign', ['+', '-'])->index()->nullable()->comment('comment');
             $table->double('amount')->index()->nullable()->default(0)->comment('comment');
             $table->double('sign_amount')->index()->nullable()->default(0)->comment('comment');
+            $table->double('installment_count')->index()->nullable()->default(0)->comment('comment');
             $table->unsignedBigInteger('company_id')->unsigned()->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('strategic_business_unit_id')->unsigned()->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('activity_id')->unsigned()->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('transaction_type_id')->unsigned()->index()->nullable()->comment('comment');
+            $table->timestamp('date_time_deadline')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
             $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
         });
         

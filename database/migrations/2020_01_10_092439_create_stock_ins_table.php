@@ -41,7 +41,7 @@ class CreateStockInsTable extends Migration
             //$table->unsignedBigInteger('measure_unit_id')->unsigned()->index()->nullable()->comment('comment');
             $table->double('quantity')->index()->nullable()->default(0)->comment('comment');
             //$table->text('description')->nullable()->default(null)->comment('comment');
-            //$table->nullableMorphs('stockable');
+            $table->nullableMorphs('stockable');
             $table->nullableMorphs('referenceable');
             $table->unsignedBigInteger('activity_id')->unsigned()->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('transaction_type_id')->unsigned()->index()->nullable()->comment('comment');
