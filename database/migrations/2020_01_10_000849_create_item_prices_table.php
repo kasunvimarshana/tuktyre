@@ -33,8 +33,8 @@ class CreateItemPricesTable extends Migration
             $table->boolean('is_visible')->index()->nullable()->default(false)->comment('comment');
             $table->boolean('is_active')->index()->nullable()->default(false)->comment('comment');
             $table->unsignedBigInteger('item_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->double('price_buy')->index()->nullable()->default(0)->comment('comment');
-            $table->double('price_sell')->index()->nullable()->default(0)->comment('comment');
+            $table->double('unit_price_buy')->index()->nullable()->default(0)->comment('comment');
+            $table->double('unit_price_sell')->index()->nullable()->default(0)->comment('comment');
             $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('company_id')->unsigned()->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('strategic_business_unit_id')->unsigned()->index()->nullable()->comment('comment');

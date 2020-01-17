@@ -34,6 +34,7 @@ class CreateCashesTable extends Migration
             $table->boolean('is_active')->index()->nullable()->default(false)->comment('comment');
             $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
             $table->nullableMorphs('cashable');
+            //$table->nullableMorphs('referenceable');
             $table->enum('sign', ['+', '-'])->index()->nullable()->comment('comment');
             $table->double('amount')->index()->nullable()->default(0)->comment('comment');
             $table->double('sign_amount')->index()->nullable()->default(0)->comment('comment');
