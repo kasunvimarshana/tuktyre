@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEmployeeCommisionDataTable extends Migration
+class CreateCreditCustomerOutsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateEmployeeCommisionDataTable extends Migration
      */
     public function up()
     {
-        Schema::create('employee_commision_data', function (Blueprint $table) {
+        Schema::create('credit_customer_outs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateEmployeeCommisionDataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employee_commision_data');
+        Schema::dropIfExists('credit_customer_outs');
     }
 }

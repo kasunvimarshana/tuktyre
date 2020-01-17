@@ -34,6 +34,7 @@ class CreateRolePermissionsTable extends Migration
             //$table->foreign('permission_id')->references('id')->on('permissions')->onUpdate('cascade')->onDelete('cascade');
             //SETTING THE PRIMARY KEYS
             //$table->primary(['role_id','permission_id']);
+            $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
         });
         
         Schema::table($this->table_name_1, function($table) {

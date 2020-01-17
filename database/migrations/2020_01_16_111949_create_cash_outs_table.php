@@ -7,9 +7,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class CreateUserTypesTable extends Migration
+class CreateCashOutsTable extends Migration
 {
-    protected $table_name_1 = "user_types";
+    protected $table_name_1 = "cash_outs";
     /**
      * Run the migrations.
      *
@@ -32,13 +32,15 @@ class CreateUserTypesTable extends Migration
             //$table->unsignedBigInteger('pk')->nullable()->default(0)->comment('comment');
             $table->boolean('is_visible')->index()->nullable()->default(false)->comment('comment');
             $table->boolean('is_active')->index()->nullable()->default(false)->comment('comment');
-            $table->string('slug')->index()->nullable()->comment('comment'); // create-table
-            $table->string('code')->index()->nullable()->comment('comment');
-            //$table->string('key_id')->index()->nullable()->comment('comment');
-            //$table->string('key_value')->index()->nullable()->comment('comment');
-            //$table->text('image_uri')->nullable()->default(null)->comment('uniform resource identifier'); 
             $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('user_type_id_parent')->unsigned()->index()->nullable()->comment('comment');
+            $table->nullableMorphs('cashable');
+            $table->enum('sign', ['+', '-'])->index()->nullable()->comment('comment');
+            $table->double('amount')->index()->nullable()->default(0)->comment('comment');
+            $table->double('sign_amount')->index()->nullable()->default(0)->comment('comment');
+            $table->unsignedBigInteger('company_id')->unsigned()->index()->nullable()->comment('comment');
+            $table->unsignedBigInteger('strategic_business_unit_id')->unsigned()->index()->nullable()->comment('comment');
+            $table->unsignedBigInteger('activity_id')->unsigned()->index()->nullable()->comment('comment');
+            $table->unsignedBigInteger('transaction_type_id')->unsigned()->index()->nullable()->comment('comment');
             $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
         });
         

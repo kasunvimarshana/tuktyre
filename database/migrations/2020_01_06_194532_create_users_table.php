@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             */
             
             //$table->unsignedBigInteger('id')->nullable()->default(0)->unique()->comment('comment');
-            //$table->->uuid('id')->nullable()->default(0)->unique()->comment('universal unique identifier');
+            //$table->uuid('id')->nullable()->default(0)->unique()->comment('universal unique identifier');
             //$table->dateTime('date_time')->nullable()->default('CURRENT_TIMESTAMP')->change();
             
             $table->bigIncrements('id')->comment('comment');
@@ -62,8 +62,8 @@ class CreateUsersTable extends Migration
             $table->double('latitude')->index()->nullable()->default(0)->comment('comment');
             $table->double('longitude')->index()->nullable()->default(0)->comment('comment');
             $table->text('description')->nullable()->default(null)->comment('comment');
-            $table->timestamp('time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
             $table->unsignedBigInteger('user_id_create')->unsigned()->index()->nullable()->comment('comment');
+            $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
             
             //$table->boolean('is_multi_factor_authentication')->index()->nullable()->default(false)->comment('comment');
             //$table->boolean('is_onetime_authentication')->index()->nullable()->default(false)->comment('comment');

@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\EmployeeCommisionData;
+use App\CreditCustomerOut;
 use Faker\Generator as Faker;
 
-$factory->define(EmployeeCommisionData::class, function (Faker $faker) {
+$factory->define(CreditCustomerOut::class, function (Faker $faker) {
     return [
         //
     ];

@@ -24,7 +24,7 @@ class CreateAttachablesTable extends Migration
             */
             
             //$table->unsignedBigInteger('id')->nullable()->default(0)->unique()->comment('comment');
-            //$table->->uuid('id')->nullable()->default(0)->unique()->comment('universal unique identifier');
+            //$table->uuid('id')->nullable()->default(0)->unique()->comment('universal unique identifier');
             //$table->dateTime('date_time')->nullable()->default('CURRENT_TIMESTAMP')->change();
             
             $table->bigIncrements('id')->comment('comment');
@@ -42,6 +42,7 @@ class CreateAttachablesTable extends Migration
             $table->string('type')->index()->nullable()->comment('comment');
             $table->double('size')->index()->nullable()->default(0)->comment('comment');
             $table->binary('data')->nullable()->comment('comment');
+            $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
         });
         
         Schema::table($this->table_name_1, function($table) {

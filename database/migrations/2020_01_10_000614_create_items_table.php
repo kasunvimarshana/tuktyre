@@ -24,7 +24,7 @@ class CreateItemsTable extends Migration
             */
             
             //$table->unsignedBigInteger('id')->nullable()->default(0)->unique()->comment('comment');
-            //$table->->uuid('id')->nullable()->default(0)->unique()->comment('universal unique identifier');
+            //$table->uuid('id')->nullable()->default(0)->unique()->comment('universal unique identifier');
             //$table->dateTime('date_time')->nullable()->default('CURRENT_TIMESTAMP')->change();
             
             $table->bigIncrements('id')->comment('comment');
@@ -49,6 +49,7 @@ class CreateItemsTable extends Migration
             $table->double('piority_order')->index()->nullable()->default(0)->comment('comment');
             $table->boolean('is_parent')->index()->nullable()->default(false)->comment('comment');
             $table->boolean('is_child')->index()->nullable()->default(false)->comment('comment');
+            $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
         });
         
         Schema::table($this->table_name_1, function($table) {

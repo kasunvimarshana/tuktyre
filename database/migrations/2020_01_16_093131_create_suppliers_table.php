@@ -36,6 +36,7 @@ class CreateSuppliersTable extends Migration
             $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('company_id')->unsigned()->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('strategic_business_unit_id')->unsigned()->index()->nullable()->comment('comment');
+            $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
         });
         
         Schema::table($this->table_name_1, function($table) {

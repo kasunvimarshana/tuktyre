@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\EmployeeCommissionPayment;
+use App\CashOut;
 use Faker\Generator as Faker;
 
-$factory->define(EmployeeCommissionPayment::class, function (Faker $faker) {
+$factory->define(CashOut::class, function (Faker $faker) {
     return [
         //
     ];

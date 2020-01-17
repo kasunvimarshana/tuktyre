@@ -40,6 +40,7 @@ class CreateManufacturesTable extends Migration
             $table->text('image_uri')->nullable()->default(null)->comment('uniform resource identifier'); 
             $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('manufacture_id_parent')->unsigned()->index()->nullable()->comment('comment');
+            $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
         });
         
         Schema::table($this->table_name_1, function($table) {

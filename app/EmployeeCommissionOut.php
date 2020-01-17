@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CreditCustomerData extends Model
+class EmployeeCommissionOut extends Model
 {
     //
 }

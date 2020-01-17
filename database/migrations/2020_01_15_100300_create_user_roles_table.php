@@ -34,6 +34,7 @@ class CreateUserRolesTable extends Migration
             //$table->foreign('role_id')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cascade');
             //SETTING THE PRIMARY KEYS
             //$table->primary(['user_id','role_id']);
+            $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
         });
         
         Schema::table($this->table_name_1, function($table) {

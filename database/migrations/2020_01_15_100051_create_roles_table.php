@@ -24,7 +24,7 @@ class CreateRolesTable extends Migration
             */
             
             //$table->unsignedBigInteger('id')->nullable()->default(0)->unique()->comment('comment');
-            //$table->->uuid('id')->nullable()->default(0)->unique()->comment('universal unique identifier');
+            //$table->uuid('id')->nullable()->default(0)->unique()->comment('universal unique identifier');
             //$table->dateTime('date_time')->nullable()->default('CURRENT_TIMESTAMP')->change();
             
             $table->bigIncrements('id')->comment('comment');
@@ -32,6 +32,7 @@ class CreateRolesTable extends Migration
             //$table->unsignedBigInteger('pk')->nullable()->default(0)->comment('comment');
             $table->string('slug')->index()->comment('comment'); // create-table
             $table->string('name')->index()->comment('comment'); // create table
+            $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
         });
         
         Schema::table($this->table_name_1, function($table) {

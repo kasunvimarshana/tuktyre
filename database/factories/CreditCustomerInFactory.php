@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\CreditCustomerPayment;
+use App\CreditCustomerIn;
 use Faker\Generator as Faker;
 
-$factory->define(CreditCustomerPayment::class, function (Faker $faker) {
+$factory->define(CreditCustomerIn::class, function (Faker $faker) {
     return [
         //
     ];
