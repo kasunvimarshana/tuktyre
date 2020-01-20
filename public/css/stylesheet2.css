@@ -1,0 +1,85 @@
+.login-left img{
+	margin: 0 auto;
+	max-width: 470px;
+}
+
+.login-wrap {
+
+    padding-top: 8vh;
+    margin: 0 auto;
+    border-right: 5px solid rgb(234, 234, 234);
+}
+.login-left
+{
+	
+	padding: 50px;
+}
+.login-logo {
+	text-align: center;
+    padding-top: 20%;
+}
+.login-logo  img{
+	padding-bottom: 5%;	
+}
+.login-right{
+	text-align: center;
+}
+
+
+
+.register-link {
+    padding-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+.au-input--full {
+    width: 100%;
+}
+
+.au-input {
+	line-height: 50px;
+    border: 1px solid rgb(229, 229, 229);
+    font-size: 14px;
+    color: rgb(102, 102, 102);
+    padding: 25px 17px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    margin-bottom: 30px;
+}
+
+.pull-right {
+    float: none!important;
+}
+.pull-right b, .pull-right strong{
+	color: #8e8e8e;
+}
+.fgot
+{
+	text-align: right;
+    font-size: 15px;
+    padding-bottom: 10px;
+}
+.fgot a{
+	color: rgb(255, 46, 68);
+	font-weight: 400;
+}
+
+.au-btn {
+    line-height: 45px;
+    padding: 0 35px;
+    text-transform: uppercase;
+    color: rgb(255, 255, 255);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
