@@ -40,6 +40,8 @@ class CreateStockOutsTable extends Migration
             //$table->double('unit_price_sell')->index()->nullable()->default(0)->comment('comment');
             //$table->unsignedBigInteger('measure_unit_id')->unsigned()->index()->nullable()->comment('comment');
             $table->double('quantity')->index()->nullable()->default(0)->comment('comment');
+            //$table->enum('sign', ['+', '-'])->index()->nullable()->comment('comment');
+            //$table->double('sign_quantity')->index()->nullable()->default(0)->comment('comment');
             //$table->text('description')->nullable()->default(null)->comment('comment');
             $table->nullableMorphs('stockable');
             $table->nullableMorphs('referenceable');
