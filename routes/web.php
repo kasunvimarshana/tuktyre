@@ -11,14 +11,18 @@
 |
 */
 
+Route::group(['middleware' => []], function(){
+    
+    //Route::get('/home', array('uses' => 'HomeController@index'))->name('home');
+    Route::post('employees/store', array('uses' => 'EmployeeController@store'))->name('employee.store');
+    Route::get('employee', array('uses' => 'EmployeeController@create'))->name('employee.create');
+    
+    Route::post('customers/store', array('uses' => 'CustomerController@store'))->name('customer.store');
+    Route::get('customer', array('uses' => 'CustomerController@create'))->name('customer.create');
+});
+
 Route::get('/', function () {
     return view('pages.dashboard');
-});
-Route::get('/customer', function () {
-    return view('pages.customer_reg');
-});
-Route::get('/employee', function () {
-    return view('pages.employee_reg');
 });
 Route::get('/sales', function () {
     return view('pages.sales');

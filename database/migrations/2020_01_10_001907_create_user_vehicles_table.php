@@ -35,6 +35,7 @@ class CreateUserVehiclesTable extends Migration
             $table->unsignedBigInteger('user_id')->unsigned()->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('vehicle_id')->unsigned()->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
+            $table->string('vehicle_licence_number')->index()->nullable()->comment('comment');
             $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
         });
         
