@@ -49,6 +49,7 @@ class CreateItemsTable extends Migration
             $table->double('piority_order')->index()->nullable()->default(0)->comment('comment');
             $table->boolean('is_parent')->index()->nullable()->default(false)->comment('comment');
             $table->boolean('is_child')->index()->nullable()->default(false)->comment('comment');
+            $table->boolean('is_stockable')->index()->nullable()->default(false)->comment('comment');
             $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
         });
         

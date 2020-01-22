@@ -125,32 +125,16 @@
                             </div>
                             <hr>
                             <div class="row">
-                                 <div class="form-group col-md-4">
-                                    <label for="exampleInputFile">Tyre brand</label>
-                                    <div class="form-check">
-                                       <input class="form-check-input" type="radio" name="radio1">
-                                       <label class="form-check-label">DSI </label>
-                                    </div>
-                                    <div class="form-check">
-                                       <input class="form-check-input" type="radio" name="radio1" checked="">
-                                       <label class="form-check-label">CEAT</label>
-                                    </div>
+                                 <div class="form-group col-md-8">
+                                    <label for="exampleInputFile">Item</label>
+                                    <select class="form-control select2" >
+                                       <option selected="selected">WP BFT-0894 | 922251568V</option>
+                                       <option>WP JD-1485 | 882251568V</option>
+                                       <option>WP GT-5698 | 722251568V</option>
+                                       <option>CP YT-1498 | 622251568V</option>
+                                    </select>
                                  </div>
-                                 <div class="form-group col-md-4">
-                                    <label for="exampleInputFile">Tyre type</label>
-                                    <div class="form-check">
-                                       <input class="form-check-input" type="radio" name="radio2" checked="">
-                                       <label class="form-check-label">400/8</label>
-                                    </div>
-                                    <div class="form-check">
-                                       <input class="form-check-input" type="radio" name="radio2" >
-                                       <label class="form-check-label">450/10</label>
-                                    </div>
-                                    <div class="form-check">
-                                       <input class="form-check-input" type="radio" name="radio2" >
-                                       <label class="form-check-label">450/12</label>
-                                    </div>
-                                 </div>
+                                 
                                  <div class="form-group col-md-4">
                                     <label for="exampleInputFile">Tyre count</label>
                                     <div class="form-group">

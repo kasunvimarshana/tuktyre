@@ -127,6 +127,11 @@ class User extends Model
     }
     
     //one to many (inverse)
+    public function status(){
+        return $this->belongsTo('App\Status', 'status_id', 'id');
+    }
+    
+    //one to many (inverse)
     public function company(){
         return $this->belongsTo('App\Company', 'company_id', 'id');
     }
@@ -134,6 +139,16 @@ class User extends Model
     //one to many (inverse)
     public function strategicBusinessUnit(){
         return $this->belongsTo('App\StrategicBusinessUnit', 'strategic_business_unit_id', 'id');
+    }
+    
+    //one to one
+    public function employee(){
+        return $this->hasOne('App\Employee', 'user_id', 'id');
+    }
+    
+    //one to many
+    public function customer(){
+        return $this->hasOne('App\Customer', 'user_id', 'id');
     }
     
     /*
@@ -147,16 +162,6 @@ class User extends Model
         return $this->hasMany('App\Customer', 'user_id', 'id');
     }
     */
-    
-    //one to one
-    public function employee(){
-        return $this->hasOne('App\Employee', 'user_id', 'id');
-    }
-    
-    //one to many
-    public function customer(){
-        return $this->hasOne('App\Customer', 'user_id', 'id');
-    }
     
     /*
     //one to many (polymorphic)

@@ -109,6 +109,11 @@ class Employee extends Model
     }
     
     //one to many (inverse)
+    public function status(){
+        return $this->belongsTo('App\Status', 'status_id', 'id');
+    }
+    
+    //one to many (inverse)
     public function user(){
         return $this->belongsTo('App\User', 'user_id', 'id');
     }
