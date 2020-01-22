@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::group(['middleware' => []], function(){
     
     //Route::get('/home', array('uses' => 'HomeController@index'))->name('home');
@@ -19,6 +18,10 @@ Route::group(['middleware' => []], function(){
     
     Route::post('customers/store', array('uses' => 'CustomerController@store'))->name('customer.store');
     Route::get('customer', array('uses' => 'CustomerController@create'))->name('customer.create');
+});
+
+Route::get('/signup', function () {
+    return view('login');
 });
 
 Route::get('/', function () {
