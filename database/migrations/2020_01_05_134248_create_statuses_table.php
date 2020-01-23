@@ -35,6 +35,8 @@ class CreateStatusesTable extends Migration
             //$table->string('colour_id')->index()->nullable()->comment('comment');
             $table->string('slug')->index()->nullable()->comment('comment'); // create-table
             $table->string('code')->index()->nullable()->comment('comment');
+            $table->string('name')->index()->nullable()->comment('comment');
+            $table->string('name_display')->index()->nullable()->comment('comment');
             //$table->string('key_id')->index()->nullable()->comment('comment');
             //$table->string('key_value')->index()->nullable()->comment('comment');
             //$table->text('image_uri')->nullable()->default(null)->comment('uniform resource identifier'); 

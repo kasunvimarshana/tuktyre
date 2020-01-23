@@ -42,7 +42,7 @@ class CreateStrategicBusinessUnitsTable extends Migration
             $table->text('description')->nullable()->default(null)->comment('comment');
             $table->text('image_uri')->nullable()->default(null)->comment('uniform resource identifier'); 
             $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('strategic_business_unit_id')->unsigned()->index()->nullable()->comment('comment');
+            $table->unsignedBigInteger('strategic_business_unit_id_parent')->unsigned()->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('company_id')->unsigned()->index()->nullable()->comment('comment');
             $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
         });

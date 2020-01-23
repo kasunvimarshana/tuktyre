@@ -2,9 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
-use App\Company;
+use App\Status;
 
-class CompanySeeder extends Seeder
+class StatusSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class CompanySeeder extends Seeder
     public function run()
     {
         //
-        $newModel_Company_Default = Company::firstOrCreate([
+        $newModel_Status_Default = Status::firstOrCreate([
             //'id' => 1,
             'is_visible' => false,
             'is_active' => false,
@@ -22,15 +22,8 @@ class CompanySeeder extends Seeder
             //'code' => str_slug("Default"),
             'name' => ucwords("Default"),
             'name_display' => ucwords("Default"),
-            //'address' => null,
-            //'latitude' => null,
-            //'longitude' => null,
-            //'description' => null,
-            //'image_uri' => null,
-            //'status_id' => null,
-            //'company_id_parent' => null,
-            //'date_time_create' => null,
+            'status_id_parent' => null,
+            'date_time_create' => null,
         ]);
     }
 }
-

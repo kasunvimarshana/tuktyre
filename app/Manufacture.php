@@ -33,10 +33,7 @@ class Manufacture extends Model
      *
      * @var array
      */
-    protected $fillable = array('id', 'is_visible', 'is_active', 'slug', 'code', 'name', 'name_display', 'description', 'image_uri', 'unit_price_buy', 'unit_price_sell', 'status_id', 'measure_unit_id', 'product_id', 'category_id', 'manufacture_id', 'item_id_parent', 'piority_order', 'is_parent', 'is_child', 'is_stockable', 'date_time_create');
-    
-    protected $fillable = array('id', 'is_visible', 'is_active', 'slug', 'code', 'name', 'name_display', 'description', 'image_uri', 'unit_price_buy', 'unit_price_sell', 'status_id', 'measure_unit_id', 'product_id', 'category_id', 'manufacture_id', 'item_id_parent', 'piority_order', 'is_parent', 'is_child', 'is_stockable', 'date_time_create');
-
+    protected $fillable = array('id', 'is_visible', 'is_active', 'slug', 'code', 'name', 'name_display', 'description', 'image_uri', 'status_id', 'manufacture_id_parent', 'date_time_create');
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -128,40 +125,49 @@ class Manufacture extends Model
         });
     }
     
-    //one to many (inverse)
-    public function measureUnit(){
-        return $this->belongsTo('App\MeasureUnit', 'measure_unit_id', 'id');
+    //one to many
+    public function items(){
+        return $this->hasMany('App\Item', 'manufacture_id', 'id');
     }
     
     //one to many (inverse)
-    public function product(){
-        return $this->belongsTo('App\Product', 'product_id', 'id');
-    }
-    
-    //one to many (inverse)
-    public function category(){
-        return $this->belongsTo('App\Category', 'category_id', 'id');
-    }
-    
-    //one to many (inverse)
-    public function manufacture(){
-        return $this->belongsTo('App\Manufacture', 'manufacture_id', 'id');
-    }
-    
-    //one to many (inverse)
-    public function itemParent(){
-        return $this->belongsTo('App\Item', 'item_id_parent', 'id');
+    public function manufactureParent(){
+        return $this->belongsTo('App\Manufacture', 'manufacture_id_parent', 'id');
     }
     
     //one to many
-    public function itemChildren(){
-        return $this->hasMany('App\Item', 'item_id_parent', 'id');
+    public function manufactureChildren(){
+        return $this->hasMany('App\Manufacture', 'manufacture_id_parent', 'id');
     }
+    
+    //one to many (inverse)
+    public function status(){
+        return $this->belongsTo('App\Status', 'status_id', 'id');
+    }
+    
+    /*
+    //one to many (inverse)
+    public function status(){
+        return $this->belongsTo('App\Status', 'status_id', 'id');
+    }
+    */
     
     /*
     //one to many (polymorphic)
     public function userAttachments(){
         return $this->morphMany('App\Attachable', 'attachable', 'attachable_type', 'attachable_id', 'id');
+    }
+    */
+     
+    /*
+    //one to many (inverse)
+    public function modelParent(){
+        return $this->belongsTo('App\Model', 'model_id_parent', 'id');
+    }
+    
+    //one to many
+    public function modelChildren(){
+        return $this->hasMany('App\Model', 'model_id_parent', 'id');
     }
     */
 }

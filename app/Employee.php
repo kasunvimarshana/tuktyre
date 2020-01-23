@@ -109,19 +109,33 @@ class Employee extends Model
     }
     
     //one to many (inverse)
-    public function status(){
-        return $this->belongsTo('App\Status', 'status_id', 'id');
-    }
-    
-    //one to many (inverse)
     public function user(){
         return $this->belongsTo('App\User', 'user_id', 'id');
     }
     
     /*
+    //one to many (inverse)
+    public function status(){
+        return $this->belongsTo('App\Status', 'status_id', 'id');
+    }
+    */
+    
+    /*
     //one to many (polymorphic)
     public function userAttachments(){
         return $this->morphMany('App\Attachable', 'attachable', 'attachable_type', 'attachable_id', 'id');
+    }
+    */
+     
+    /*
+    //one to many (inverse)
+    public function modelParent(){
+        return $this->belongsTo('App\Model', 'model_id_parent', 'id');
+    }
+    
+    //one to many
+    public function modelChildren(){
+        return $this->hasMany('App\Model', 'model_id_parent', 'id');
     }
     */
 }
