@@ -146,6 +146,11 @@ class User extends Model
         return $this->hasOne('App\Customer', 'user_id', 'id');
     }
     
+    //one to many
+    public function userVehicles(){
+        return $this->hasMany('App\UserVehicle', 'user_id', 'id');
+    }
+    
     /*
     //one to many
     public function employees(){

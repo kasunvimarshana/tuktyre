@@ -35,7 +35,7 @@ class CreateStockInsTable extends Migration
             //$table->string('code')->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('item_id')->unsigned()->index()->nullable()->comment('comment');
-            //$table->double('unit_price')->index()->nullable()->default(0)->comment('comment');
+            $table->double('unit_price')->index()->nullable()->default(0)->comment('comment');
             //$table->double('unit_price_buy')->index()->nullable()->default(0)->comment('comment');
             //$table->double('unit_price_sell')->index()->nullable()->default(0)->comment('comment');
             //$table->unsignedBigInteger('measure_unit_id')->unsigned()->index()->nullable()->comment('comment');

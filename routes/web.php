@@ -18,6 +18,15 @@ Route::group(['middleware' => []], function(){
     
     Route::post('customers/store', array('uses' => 'CustomerController@store'))->name('customer.store');
     Route::get('customer', array('uses' => 'CustomerController@create'))->name('customer.create');
+    
+    Route::post('tyrestock/store', array('uses' => 'StockInTyreController@store'))->name('stockInTyre.store');
+    Route::get('tyrestock', array('uses' => 'StockInTyreController@create'))->name('stockInTyre.create');
+    
+    Route::post('batteriesstock/store', array('uses' => 'StockInBatteryController@store'))->name('stockInBattery.store');
+    Route::get('batteriesstock', array('uses' => 'StockInBatteryController@create'))->name('stockInBattery.create');
+    
+    Route::post('alloywheelsstock/store', array('uses' => 'StockInAlloyWheelController@store'))->name('stockInAlloyWheel.store');
+    Route::get('alloywheelsstock', array('uses' => 'StockInAlloyWheelController@create'))->name('stockInAlloyWheel.create');
 });
 
 Route::get('/signup', function () {
@@ -44,9 +53,6 @@ Route::get('/payments', function () {
 });
 Route::get('/stock', function () {
     return view('pages.stock');
-});
-Route::get('/tyrestock', function () {
-    return view('pages.tyre_stock');
 });
 Route::get('/batteriesstock', function () {
     return view('pages.battery_stock');

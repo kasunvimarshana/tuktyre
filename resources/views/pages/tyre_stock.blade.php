@@ -23,34 +23,29 @@
             <table id="dataTable" class="table table-striped table-bordered" >
                <thead>
                   <tr>
-                     <th>Date</th>
-                     <th>Brand</th>
-                     <th>Type</th>
+                     <th>#</th>
+                     <th>Item</th>
                      <th>Count</th>
-                     <th>Cost of (1)qty</th>
                      <th>Edit</th>
                      <th>Delete</th>
                   </tr>
                </thead>
                <tbody>
-                  <tr>
-                     <td>12/20/2019</td>
-                     <td> DSI</td>
-                     <td> 450/12</td>
-                     <td> 20</td>
-                     <td> 845.00</td>
-                     <td> <a href=""><i class="fas fa-edit"></i></a></td>
-                     <td> <a href=""><i class="fas fa-window-close"></i></a></td>
-                  </tr>
-                  <tr>
-                     <td>12/20/2019</td>
-                     <td> DSI</td>
-                     <td> 450/12</td>
-                     <td> 20</td>
-                     <td> 845.00</td>
-                     <td> <a href=""><i class="fas fa-edit"></i></a></td>
-                     <td> <a href=""><i class="fas fa-window-close"></i></a></td>
-                  </tr>
+                    <!-- @isset($stockInObjectArray) -->
+                    <!-- @foreach($stockInObjectArray as $key_stockInObject => $value_stockInObject) -->
+                        <tr>
+                            <td>#</td>
+                            <td>
+                                @isset($value_stockInObject->item)
+                                    {{ $value_stockInObject->item->name_display }}
+                                @endisset
+                            </td>
+                            <td>{{ $value_stockInObject->quantity_sum }}</td>
+                            <td> <a href=""><i class="fas fa-edit"></i></a></td>
+                            <td> <a href=""><i class="fas fa-window-close"></i></a></td>
+                        </tr>
+                    <!-- @endforeach -->
+                    <!-- @endisset -->
             </table>
          </fieldset>
       </div>
@@ -59,7 +54,10 @@
                      <legend class="scheduler-border">
                         <h3>Tyres stock</h3>
                      </legend>
-                     <form role="form">
+                     <form role="form" action="{!! route('stockInTyre.store', []) !!}" method="POST" class="" autocomplete="off" id="form1" enctype="multipart/form-data">
+                         <!-- --- -->
+                          @csrf
+                         <!-- --- -->
                         <div class="card-body">
                            <div class="row">
                                <!-- Date -->
@@ -69,7 +67,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="datepicker">
+                                    <input type="text" class="form-control pull-right" id="date_time_create" name="date_time_create">
                                     </div>
                                     <!-- /.input group -->
                                 </div>
@@ -78,7 +76,7 @@
                               <div class="form-group col-md-6">
                               <label for="exampleInputFile">Qty price</label>
                                     <div class="form-group">
-                                       <input type="text" class="form-control price-align" placeholder="00.00">
+                                       <input type="text" class="form-control price-align" placeholder="00.00" id="quantity" name="quantity">
                                     </div>
                               </div>
                             </div>
@@ -86,27 +84,28 @@
                             <div class="row">
                                  <div class="form-group col-md-6">
                                     <label for="exampleInputFile">Item</label>
-                                    <select class="form-control select2" >
-                                       <option selected="selected">WP BFT-0894 | 922251568V</option>
-                                       <option>WP JD-1485 | 882251568V</option>
-                                       <option>WP GT-5698 | 722251568V</option>
-                                       <option>CP YT-1498 | 622251568V</option>
+                                    <select class="form-control select2" id="item_id" name="item_id">
+                                        <!-- @isset($itemObjectArray) -->
+                                        <!-- @foreach($itemObjectArray as $key_itemObject => $value_itemObject) -->
+                                            <option value="{!! $value_itemObject->id !!}">{{ $value_itemObject->name_display }}</option>
+                                        <!-- @endforeach -->
+                                        <!-- @endisset -->
                                     </select>
                                  </div>
-                                 <div class="form-group col-md-6">
+                                 <!-- div class="form-group col-md-6">
                                     <div class="form-check">
                                        <input class="form-check-input" type="radio" name="radio2" >
                                        <label class="form-check-label">Other</label>
                                        <input type="text" class="form-control" placeholder="xxx/xx">
                                     </div>
                                     
-                                 </div>
+                                 </div -->
                                 <div class="form-group col-md-6">
                                 </div>
                                  <div class="form-group col-md-6">
                                     <label for="exampleInputFile">Tyre count</label>
                                     <div class="form-group">
-                                       <input type="number" class="form-control" placeholder="Count">
+                                       <input type="number" class="form-control" placeholder="Count" id="quantity" name="quantity">
                                     </div>
                                  </div>
                             </div>
@@ -117,7 +116,7 @@
                          <a href="/batteriesstock">Battery</a> | <a href="/alloywheelsstock">Alloywheel</a>
                          </div>
                            <div class="card-footer col-md-6 btn-area">
-                              <button type="submit" class="btn btn-danger">Cancel</button>
+                              <button type="reset" class="btn btn-danger">Cancel</button>
                               <button type="submit" class="btn btn-success">Submit</button>
                            </div>
                      </form>

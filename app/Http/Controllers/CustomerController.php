@@ -32,6 +32,7 @@ use Illuminate\Support\Facades\Route;
 //use App\Http\Resources\CommonResponseResource as CommonResponseResource;
 //use App\Enums\HTTPStatusCodeEnum as HTTPStatusCodeEnum;
 use App\User as User;
+use App\UserVehicle as UserVehicle;
 
 class CustomerController extends Controller
 {
@@ -203,6 +204,27 @@ class CustomerController extends Controller
                         ])
                     );
                     $userObject->customer()->saveMany( $customerObjectArray );
+                }
+                
+                if( (($request->has('vehicle_licence_number')) && ($request->filled('vehicle_licence_number'))) ){
+                    if( $userObject ){
+                        $vehicle_licence_number = $request->input('vehicle_licence_number');
+                        
+                        $userVehicleObjectArray = array(
+                            $userObject->userVehicles()->firstOrCreate([
+                                //'id' => $request->input('id'),
+                                //'is_visible' => true,
+                                //'is_active' => true,
+                                //'user_id' => $userObject->user_id,
+                                //'vehicle_id' => $request->input('vehicle_id'),
+                                //'status_id' => $request->input('status_id'),
+                                'vehicle_licence_number' => $vehicle_licence_number,
+                                //'date_time_create' => $request->input('date_time_create'),
+                            ])
+                        );
+                        
+                        $userObject->userVehicles()->saveMany( $userVehicleObjectArray );
+                    }
                 }
                 
                 $data['user_object'] = $userObject;
