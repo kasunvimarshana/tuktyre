@@ -81,50 +81,23 @@
                             </div>
                             <hr>
                             <div class="row">
-                            <div class="form-group col-md-4">
-                                    <label for="exampleInputFile">Model</label>
-                                    <div class="form-check">
-                                       <input class="form-check-input" type="radio" name="radio2" checked="">
-                                       <label class="form-check-label">MD01</label>
-                                    </div>
-                                    <div class="form-check">
-                                       <input class="form-check-input" type="radio" name="radio2" checked="">
-                                       <label class="form-check-label">MD02</label>
-                                    </div>
-                                    <div class="form-check">
-                                       <input class="form-check-input" type="radio" name="radio2" checked="">
-                                       <label class="form-check-label">MD03</label>
-                                    </div>
-                                    <div class="form-check">
-                                       <input class="form-check-input" type="radio" name="radio2" checked="">
-                                       <label class="form-check-label">MD04</label>
-                                    </div>
-                                    <div class="form-check">
-                                       <input class="form-check-input" type="radio" name="radio2" checked="">
-                                       <label class="form-check-label">MD05</label>
-                                    </div>
-                                    <div class="form-check">
-                                       <input class="form-check-input" type="radio" name="radio2" checked="">
-                                       <label class="form-check-label">MD06</label>
-                                    </div>
+                            <div class="form-group col-md-6">
+                                    <label for="exampleInputFile">Item</label>
+                                    <select class="form-control select2" >
+                                       <option selected="selected">WP BFT-0894 | 922251568V</option>
+                                       <option>WP JD-1485 | 882251568V</option>
+                                       <option>WP GT-5698 | 722251568V</option>
+                                       <option>CP YT-1498 | 622251568V</option>
+                                    </select>
                                  </div>
-                                 <div class="form-group col-md-4">
-                                    <label for="exampleInputFile">Type</label>
-                                    <div class="form-check">
-                                       <input class="form-check-input" type="radio" name="radio2" checked="">
-                                       <label class="form-check-label">12v 35ah</lable>
-                                    </div>
-                                    <div class="form-check">
-                                       <input class="form-check-input" type="radio" name="radio2" >
-                                       <label class="form-check-label">9v 65ah</label>
-                                    </div>
+                                 <div class="form-group col-md-6">
                                     <div class="form-check">
                                        <input class="form-check-input" type="radio" name="radio2" >
                                        <label class="form-check-label">Other</label>
                                        <input type="text" class="form-control" placeholder="xxx/xx">
                                     </div>
                                  </div>
-                                 <div class="form-group col-md-4">
+                                 <div class="form-group col-md-6">
                                     <label for="exampleInputFile">Tyre count</label>
                                     <div class="form-group">
                                        <input type="number" class="form-control" placeholder="Count">
@@ -133,7 +106,9 @@
                             </div>
                             <hr>
                         </div>
-                        <div class="card-footer col-md-6"></div>
+                        <div class="card-footer col-md-6">
+                         New Stock : 
+                         <a href="/tyrestock">Tyre</a> | <a href="/batteriesstock">Battery</a></div>
                            <div class="card-footer col-md-6 btn-area">
                               <button type="submit" class="btn btn-danger">Cancel</button>
                               <button type="submit" class="btn btn-success">Submit</button>

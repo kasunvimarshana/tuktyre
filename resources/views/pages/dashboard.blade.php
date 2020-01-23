@@ -52,7 +52,7 @@
                      <p>Tyre Stock</p>
                   </div>
                   <div class="icon">
-                     <i class="fas fa-user ico1"></i>
+                    <img src="{{asset('images/tyre.png')}}" class="img-responsive img-sec">
                   </div>
                   <p  class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></p>
                </div>
@@ -66,7 +66,7 @@
                      <p> Battery</p>
                   </div>
                   <div class="icon">
-                     <i class="fas fa-user ico1"></i>
+                     <img src="{{asset('images/battery.png')}}" class="img-responsive img-sec">
                   </div>
                   <p  class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></p>
                </div>
@@ -80,7 +80,7 @@
                      <p>Alloy wheels</p>
                   </div>
                   <div class="icon">
-                     <i class="fas fa-user ico1"></i>
+                     <img src="{{asset('images/alloywheel.png')}}" class="img-responsive img-sec">
                   </div>
                   <p  class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></p>
                </div>

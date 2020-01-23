@@ -127,11 +127,6 @@ class User extends Model
     }
     
     //one to many (inverse)
-    public function status(){
-        return $this->belongsTo('App\Status', 'status_id', 'id');
-    }
-    
-    //one to many (inverse)
     public function company(){
         return $this->belongsTo('App\Company', 'company_id', 'id');
     }
@@ -163,10 +158,12 @@ class User extends Model
     }
     */
     
+    /*
     //one to many (inverse)
     public function status(){
         return $this->belongsTo('App\Status', 'status_id', 'id');
     }
+    */
     
     /*
     //one to many (polymorphic)

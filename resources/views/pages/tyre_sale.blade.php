@@ -171,7 +171,10 @@
                               </div>
                            </div>
                         </div>
-                        <div class="card-footer col-md-6"></div>
+                        <div class="card-footer col-md-6">
+                        New Sale : 
+                         <a href="/batteries">Battery</a> | <a href="/alloywheels">Alloywheel</a>
+                         </div>
                            <div class="card-footer col-md-6 btn-area">
                               <button type="submit" class="btn btn-danger">Cancel</button>
                               <button type="submit" class="btn btn-success">Submit</button>
