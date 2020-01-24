@@ -27,6 +27,15 @@ Route::group(['middleware' => []], function(){
     
     Route::post('alloywheelsstock/store', array('uses' => 'StockInAlloyWheelController@store'))->name('stockInAlloyWheel.store');
     Route::get('alloywheelsstock', array('uses' => 'StockInAlloyWheelController@create'))->name('stockInAlloyWheel.create');
+    
+    Route::post('tyre/store', array('uses' => 'SellTyreController@store'))->name('SellTyre.store');
+    Route::get('tyre', array('uses' => 'SellTyreController@create'))->name('SellTyre.create');
+    
+    Route::post('batteries/store', array('uses' => 'SellBatteryController@store'))->name('sellBattery.store');
+    Route::get('batteries', array('uses' => 'SellBatteryController@create'))->name('sellBattery.create');
+    
+    Route::post('alloywheels/store', array('uses' => 'SellAlloyWheelController@store'))->name('sellAlloyWheel.store');
+    Route::get('alloywheels', array('uses' => 'SellAlloyWheelController@create'))->name('sellAlloyWheel.create');
 });
 
 Route::get('/signup', function () {
