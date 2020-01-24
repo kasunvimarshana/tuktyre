@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
-class Vehicle extends Model
+class VehicleType extends Model
 {
     //
     //protected $table = "table";
@@ -106,11 +106,6 @@ class Vehicle extends Model
         static::creating(function( $model ){ /**/ });
         
         static::saving(function( $model ){ /**/ });
-    }
-    
-    //one to many (inverse)
-    public function vehicleType(){
-        return $this->belongsTo('App\VehicleType', 'vehicle_type_id', 'id');
     }
     
     /*

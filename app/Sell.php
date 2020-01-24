@@ -33,7 +33,7 @@ class Sell extends Model
      *
      * @var array
      */
-    protected $fillable = array();
+    protected $fillable = array('id', 'is_visible', 'is_active', 'code', 'status_id', 'amount', 'amount_discount', 'amount_down_payment', 'amount_credit', 'user_id_create', 'user_id_customer', 'user_id_employee', 'user_vehicle_id_customer', 'description', 'company_id', 'strategic_business_unit_id', 'date_time_create');
 
     /**
      * The attributes that should be hidden for arrays.
@@ -106,6 +106,16 @@ class Sell extends Model
         static::creating(function( $model ){ /**/ });
         
         static::saving(function( $model ){ /**/ });
+    }
+    
+    //one to many
+    public function sellItems(){
+        return $this->hasMany('App\SellItem', 'sell_id', 'id');
+    }
+    
+    //one to many (inverse)
+    public function userVehicleCustomer(){
+        return $this->belongsTo('App\UserVehicle', 'user_vehicle_id_customer', 'id');
     }
     
     /*

@@ -33,7 +33,7 @@ class SellItem extends Model
      *
      * @var array
      */
-    protected $fillable = array();
+    protected $fillable = array('id', 'is_visible', 'is_active', 'status_id', 'sell_id', 'item_id', 'unit_price', 'quantity', 'referenceable_type', 'referenceable_id', 'date_time_create');
 
     /**
      * The attributes that should be hidden for arrays.
@@ -106,6 +106,11 @@ class SellItem extends Model
         static::creating(function( $model ){ /**/ });
         
         static::saving(function( $model ){ /**/ });
+    }
+    
+    //one to many (inverse)
+    public function sell(){
+        return $this->belongsTo('App\Sell', 'sell_id', 'id');
     }
     
     /*

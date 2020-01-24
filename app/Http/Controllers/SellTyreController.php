@@ -32,6 +32,10 @@ use Illuminate\Support\Facades\Route;
 //use App\Http\Resources\CommonResponseResource as CommonResponseResource;
 //use App\Enums\HTTPStatusCodeEnum as HTTPStatusCodeEnum;
 use App\Item as Item;
+use App\UserVehicle as UserVehicle;
+use App\StockIn;
+use App\User;
+use App\Sell;
 
 class SellTyreController extends Controller
 {
@@ -66,21 +70,21 @@ class SellTyreController extends Controller
         try {
             // Start transaction!
             DB::beginTransaction();
-            /* select stock data */
-            $stockInObject = new StockIn();
-            $stockInObject = $stockInObject->where("is_visible", "=", true);
-            $stockInObject = $stockInObject->where("is_active", "=", true);
-            $stockInObject = $stockInObject->whereHas('item', function($query){
-                //$query->where('key', '=', 'value');
-                $query = $query->where('item_id_parent', '=', '2');
-                $query = $query->where('is_stockable', '=', true);
-            });
-            $stockInObject = $stockInObject->select('*', DB::raw('SUM(quantity) as quantity_sum'));
-            $stockInObject = $stockInObject->groupBy('item_id');
-            $stockInObject = $stockInObject->with(['item']);
-            $stockInObjectArray = $stockInObject->get();
             
-            $data['stockInObjectArray'] = $stockInObjectArray;
+            /* select sell data */
+            $sellObject = new Sell();
+            $sellObject = $sellObject->where("is_visible", "=", true);
+            $sellObject = $sellObject->where("is_active", "=", true);
+            /*
+            $sellObject = $sellObject->whereHas('sellItems', function($query){
+                //$query->where('key', '=', 'value');
+            });
+            */
+            $sellObject = $sellObject->orderBy('id');
+            $sellObject = $sellObject->with(['sellItems', 'userVehicleCustomer']);
+            $sellObjectArray = $sellObject->get();
+            
+            $data['sellObjectArray'] = $sellObjectArray;
             
             /* select item data */
             $itemObject = new Item();
@@ -91,6 +95,44 @@ class SellTyreController extends Controller
             $itemObjectArray = $itemObject->get();
             
             $data['itemObjectArray'] = $itemObjectArray;
+            
+            /* select user data */
+            $userObjectEmployee = new User();
+            $userObjectEmployee = $userObjectEmployee->where("is_visible", "=", true);
+            $userObjectEmployee = $userObjectEmployee->where("is_active", "=", true);
+            $userObjectEmployee = $userObjectEmployee->whereHas('employee', function($query){
+                //$query->where('key', '=', 'value');
+                //$query = $query->where('is_visible', '=', true);
+                //$query = $query->where('is_active', '=', true);
+            });
+            $userObjectEmployeeArray = $userObjectEmployee->get();
+            
+            $data['userObjectEmployeeArray'] = $userObjectEmployeeArray;
+            
+            /* select user data */
+            $userObjectCustomer = new User();
+            $userObjectCustomer = $userObjectCustomer->where("is_visible", "=", true);
+            $userObjectCustomer = $userObjectCustomer->where("is_active", "=", true);
+            $userObjectCustomer = $userObjectCustomer->whereHas('customer', function($query){
+                //$query->where('key', '=', 'value');
+                //$query = $query->where('is_visible', '=', true);
+                //$query = $query->where('is_active', '=', true);
+            });
+            $userObjectCustomerArray = $userObjectCustomer->get();
+            
+            $data['userObjectCustomerArray'] = $userObjectCustomerArray;
+            
+            /* select user data */
+            $userVehicleObject = new UserVehicle();
+            //$userVehicleObject = $userVehicleObject->where("is_visible", "=", true);
+            //$userVehicleObject = $userVehicleObject->where("is_active", "=", true);
+            $userVehicleObject = $userVehicleObject->whereHas('user', function($query){
+                //$query->where('key', '=', 'value');
+            });
+            $userVehicleObjectArray = $userVehicleObject->get();
+            
+            $data['userVehicleObjectArray'] = $userVehicleObjectArray;
+            
             //unset($dataArray);
             // Commit transaction!
             DB::commit();
@@ -160,10 +202,10 @@ class SellTyreController extends Controller
                     //'date_time_create' => $request->input('date_time_create'),
                 );
 
-                $stockInObject = StockIn::create( $dataArray );
+                //$stockInObject = StockIn::create( $dataArray );
                 unset($dataArray);
                 
-                $data['stock_in_object'] = $stockInObject;
+                //$data['stock_in_object'] = $stockInObject;
 
                 unset($dataArray);
                 // Commit transaction!

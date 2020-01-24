@@ -32,6 +32,7 @@ class CreateVehiclesTable extends Migration
             //$table->unsignedBigInteger('pk')->nullable()->default(0)->comment('comment');
             $table->boolean('is_visible')->index()->nullable()->default(false)->comment('comment');
             $table->boolean('is_active')->index()->nullable()->default(false)->comment('comment');
+            $table->boolean('is_tangible')->index()->nullable()->default(false)->comment('comment');
             $table->string('slug')->index()->nullable()->comment('comment'); // create-table
             $table->string('code')->index()->nullable()->comment('comment');
             $table->string('name')->index()->nullable()->comment('comment');
@@ -39,7 +40,9 @@ class CreateVehiclesTable extends Migration
             $table->text('description')->nullable()->default(null)->comment('comment');
             $table->text('image_uri')->nullable()->default(null)->comment('uniform resource identifier'); 
             $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('vehicle_id_parent')->unsigned()->index()->nullable()->comment('comment');
+            $table->unsignedBigInteger('vehicle_type_id')->unsigned()->index()->nullable()->comment('comment');
+            $table->string('vehicle_licence_number')->index()->nullable()->comment('comment');
+            //$table->unsignedBigInteger('vehicle_id_parent')->unsigned()->index()->nullable()->comment('comment');
             $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
         });
         

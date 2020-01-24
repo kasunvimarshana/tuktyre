@@ -7,9 +7,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class CreateSellsTable extends Migration
+class CreateSellMetaDataTable extends Migration
 {
-    protected $table_name_1 = "sells";
+    protected $table_name_1 = "sell_meta_data";
     /**
      * Run the migrations.
      *
@@ -32,21 +32,10 @@ class CreateSellsTable extends Migration
             //$table->unsignedBigInteger('pk')->nullable()->default(0)->comment('comment');
             $table->boolean('is_visible')->index()->nullable()->default(false)->comment('comment');
             $table->boolean('is_active')->index()->nullable()->default(false)->comment('comment');
-            $table->string('code')->index()->nullable()->comment('comment');
+            $table->string('key_id')->index()->nullable()->comment('comment');
+            $table->string('key_value')->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->double('amount')->index()->nullable()->default(0)->comment('comment');
-            //$table->double('amount_payment')->index()->nullable()->default(0)->comment('comment');
-            $table->double('amount_discount')->index()->nullable()->default(0)->comment('comment');
-            $table->double('amount_down_payment')->index()->nullable()->default(0)->comment('comment');
-            $table->double('amount_credit')->index()->nullable()->default(0)->comment('comment');
-            $table->unsignedBigInteger('user_id_create')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('user_id_customer')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('user_id_employee')->unsigned()->index()->nullable()->comment('comment');
-            //$table->unsignedBigInteger('vehicle_id_customer')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('user_vehicle_id_customer')->unsigned()->index()->nullable()->comment('comment');
-            $table->text('description')->nullable()->default(null)->comment('comment');
-            $table->unsignedBigInteger('company_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('strategic_business_unit_id')->unsigned()->index()->nullable()->comment('comment');
+            $table->unsignedBigInteger('sell_id')->unsigned()->index()->nullable()->comment('comment');
             $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
         });
         
