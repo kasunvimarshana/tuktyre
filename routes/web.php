@@ -48,15 +48,6 @@ Route::get('/', function () {
 Route::get('/sales', function () {
     return view('pages.sales');
 });
-Route::get('/tyre', function () {
-    return view('pages.tyre_sale');
-});
-Route::get('/batteries', function () {
-    return view('pages.battery_sale');
-});
-Route::get('/alloywheels', function () {
-    return view('pages.alloywheel_sale');
-});
 Route::get('/payments', function () {
     return view('pages.payments');
 });

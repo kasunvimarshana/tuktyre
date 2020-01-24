@@ -169,7 +169,7 @@ class StockInTyreController extends Controller
                 unset($dataArray);
                 // Commit transaction!
                 DB::commit();
-            }catch(Exception $e){dd($e);
+            }catch(Exception $e){
                 // Rollback transaction!
                 DB::rollback(); 
                 //return redirect()->back()->withInput();
