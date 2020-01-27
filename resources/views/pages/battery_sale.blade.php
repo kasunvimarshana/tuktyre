@@ -27,42 +27,42 @@
                            <tr>
                               <th>Invoice no</th>
                               <th>Vehicle no</th>
-                              <th>Brand</th>
-                              <th>Type</th>
+                              <th>Item</th>
                               <th>Qty</th>
                               <th>Total</th>
                               <th>Down Payment</th>
-                              <th>No of Instalment</th>
                               <th>Edit</th>
                               <th>Delete</th>
                            </tr>
                         </thead>
                         <tbody>
-                           <tr>
-                              <td>748</td>
-                              <td>WP BFT-0894</td>
-                              <td>Dagenite</td>
-                              <td>12v 35ah</td>
-                              <td>1</td>
-                              <td>4200</td>
-                              <td>1000</td>
-                              <td>6</td>
-                              <td> <a href=""><i class="fas fa-edit"></i></a></td>
-                              <td> <a href=""><i class="fas fa-window-close"></i></a></td>
-                           </tr>
-                           <tr>
-                              <td>749</td>
-                              <td>WP VT-0794</td>
-                              <td>Exide</td>
-                              <td>12v 35ah</td>
-                              <td>1</td>
-                              <td>4200</td>
-                              <td>1000</td>
-                              <td>6</td>
-                              <td> <a href=""><i class="fas fa-edit"></i></a></td>
-                              <td> <a href=""><i class="fas fa-window-close"></i></a></td>
-                           </tr>
-
+                            <!-- @isset($sellObjectArray) -->
+                            <!-- @foreach($sellObjectArray as $key_sellObject => $value_sellObject) -->
+                                <!-- @if($value_sellObject->sellItems) -->
+                                <!-- @foreach($value_sellObject->sellItems as $key_sellItemObject => $value_sellItemObject) -->
+                                <tr>
+                                    <td># {{ $value_sellObject->id }}</td>
+                                    <td>
+                                        @if($value_sellObject->userVehicleCustomer)
+                                            {{ $value_sellObject->userVehicleCustomer->vehicle_licence_number }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($value_sellItemObject->item)
+                                            {{ $value_sellItemObject->item->name }}
+                                        @endif
+                                    </td>
+                                    <td>{{ $value_sellItemObject->quantity }}</td>
+                                    <td>{{ number_format(($value_sellItemObject->quantity * $value_sellItemObject->quantity)) }}</td>
+                                    <td>{{ $value_sellObject->amount_down_payment }}</td>
+                                    <td> <a href=""><i class="fas fa-edit"></i></a></td>
+                                    <td> <a href=""><i class="fas fa-window-close"></i></a></td>
+                                </tr>
+                                <!-- @endforeach -->
+                                <!-- @endif -->
+                            <!-- @endforeach -->
+                            <!-- @endisset -->
+                         </tbody>
                      </table>
                   </fieldset>
                </div>
@@ -72,23 +72,26 @@
                      <legend class="scheduler-border">
                         <h3>Batteries issue</h3>
                      </legend>
-                     <form role="form">
+                     <form role="form" action="{!! route('sellBattery.store', []) !!}" method="POST" class="" autocomplete="off" id="form1" enctype="multipart/form-data">
+                         <!-- --- -->
+                          @csrf
+                         <!-- --- -->
                         <div class="card-body">
                         <div class="row">
                                <!-- Date -->
                                <div class="form-group col-md-6">
                               <label>Emp No:</label>
-                                    <select class="form-control select2" >
-                                    <option selected="selected">Dealer</option>
-                                       <option>emp-001</option>
-                                       <option>emp-002</option>
-                                       <option>emp-003</option>
-                                       <option>emp-004</option>
+                                    <select class="form-control select2" id="user_id_employee" name="user_id_employee">
+                                    <!-- @isset($userObjectEmployeeArray) -->
+                                    <!-- @foreach($userObjectEmployeeArray as $key_userObjectEmployee => $value_userObjectEmployee) -->
+                                        <option value="{!! $value_userObjectEmployee->id !!}">{{ $value_userObjectEmployee->name_display }}</option>
+                                    <!-- @endforeach -->
+                                    <!-- @endisset -->
                                     </select>
                               </div>
                               <div class="form-group col-md-6">
                                     <label>Invoice No:</label> <lable class="req-message">Required Message</lable>
-                                    <input type="text" class="form-control" id="id_no" placeholder="Invoice number">
+                                    <input type="text" class="form-control" id="code" name="code" placeholder="Invoice number">
                               </div>
                                 <div class="form-group col-md-6">
                                     <label>Sold date:</label>
@@ -96,7 +99,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="datepicker">
+                                    <input type="text" class="form-control pull-right" id="date_time_create" name="date_time_create">
                                     </div>
                                     <!-- /.input group -->
                                 </div>
@@ -104,11 +107,12 @@
                                 
                               <div class="form-group col-md-6">
                               <label>Select vehicle No:</label>
-                                    <select class="form-control select2" >
-                                       <option selected="selected">WP BFT-0894 | 922251568V</option>
-                                       <option>WP JD-1485 | 882251568V</option>
-                                       <option>WP GT-5698 | 722251568V</option>
-                                       <option>CP YT-1498 | 622251568V</option>
+                                    <select class="form-control select2" id="user_vehicle_id_customer" name="user_vehicle_id_customer">
+                                        <!-- @isset($userVehicleObjectArray) -->
+                                        <!-- @foreach($userVehicleObjectArray as $key_userVehicleObject => $value_userVehicleObject) -->
+                                            <option value="{!! $value_userVehicleObject->id !!}">{{ $value_userVehicleObject->vehicle_licence_number }}</option>
+                                        <!-- @endforeach -->
+                                        <!-- @endisset -->
                                     </select>
                               </div>
                             </div>
@@ -116,21 +120,22 @@
                             <div class="row">
                                  <div class="form-group col-md-8">
                                     <label for="exampleInputFile">Item</label>
-                                    <select class="form-control select2" >
-                                       <option selected="selected">WP BFT-0894 | 922251568V</option>
-                                       <option>WP JD-1485 | 882251568V</option>
-                                       <option>WP GT-5698 | 722251568V</option>
-                                       <option>CP YT-1498 | 622251568V</option>
+                                    <select class="form-control select2" id="item_id" name="item_id">
+                                        <!-- @isset($itemObjectArray) -->
+                                        <!-- @foreach($itemObjectArray as $key_itemObject => $value_itemObject) -->
+                                            <option value="{!! $value_itemObject->id !!}">{{ $value_itemObject->name_display }}</option>
+                                        <!-- @endforeach -->
+                                        <!-- @endisset -->
                                     </select>
                                  </div>
                                  <div class="form-group col-md-4">
                                     <label for="exampleInputFile">Count</label>
                                     <div class="form-group">
-                                       <input type="number" class="form-control" placeholder="Count">
+                                       <input type="number" class="form-control" placeholder="Count" id="quantity" name="quantity">
                                     </div>
                                     <label for="exampleInputFile">Qty price</label>
                                     <div class="form-group">
-                                       <input type="text" class="form-control price-align" placeholder="00.00">
+                                       <input type="text" class="form-control price-align" placeholder="00.00" id="unit_price" name="unit_price">
                                     </div>
                                  </div>
                             </div>
@@ -140,22 +145,22 @@
                               <label for="exampleInputFile">Sub Total</label>
                               </div>
                               <div class="form-group col-md-6 rem-padding">
-                              <input type="text" class="form-control price-align" id="cus_name" placeholder="00.00" readonly>
+                              <input type="text" class="form-control price-align" id="amount" name="amount" placeholder="00.00" readonly>
                               </div>
                               <div class="form-group col-md-6 rem-padding">
                               <label for="exampleInputFile">Down Payment</label>
                               </div>
                               <div class="form-group col-md-6 rem-padding">
-                              <input type="text" class="form-control" id="cus_name" placeholder="Down Payment">
+                              <input type="text" class="form-control" id="amount_down_payment" name="amount_down_payment" placeholder="Down Payment">
                               </div>
                               <div class="form-group col-md-4 rem-padding">
                               <label for="exampleInputFile">No of Instalments</label>
                               </div>
                               <div class="form-group col-md-2 rem-padding">
-                              <input type="text" class="form-control" id="cus_name" placeholder="0">
+                              <input type="text" class="form-control" id="installment_count" name="installment_count" placeholder="0">
                               </div>
                               <div class="form-group col-md-6 rem-padding">
-                                 <input type="text" class="form-control" id="cus_name" placeholder="Instalment value" readonly>
+                                 <input type="text" class="form-control" id="installment_amount" name="installment_amount" placeholder="Instalment value" readonly>
                               </div>
                            </div>
                         </div>
@@ -164,7 +169,7 @@
                          <a href="/tyre">Tyre</a> | <a href="/alloywheels">Alloywheel</a>
                          </div>
                            <div class="card-footer col-md-6 btn-area">
-                              <button type="submit" class="btn btn-danger">Cancel</button>
+                              <button type="reset" class="btn btn-danger">Cancel</button>
                               <button type="submit" class="btn btn-success">Submit</button>
                            </div>
                      </form>

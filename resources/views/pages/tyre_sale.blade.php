@@ -47,9 +47,13 @@
                                             {{ $value_sellObject->userVehicleCustomer->vehicle_licence_number }}
                                         @endif
                                     </td>
-                                    <td>{{ $value_sellItemObject->name }}</td>
+                                    <td>
+                                        @if($value_sellItemObject->item)
+                                            {{ $value_sellItemObject->item->name }}
+                                        @endif
+                                    </td>
                                     <td>{{ $value_sellItemObject->quantity }}</td>
-                                    <td>{{ number_format(($value_sellItemObject * $value_sellItemObject->quantity)) }}</td>
+                                    <td>{{ number_format(($value_sellItemObject->quantity * $value_sellItemObject->quantity)) }}</td>
                                     <td>{{ $value_sellObject->amount_down_payment }}</td>
                                     <td> <a href=""><i class="fas fa-edit"></i></a></td>
                                     <td> <a href=""><i class="fas fa-window-close"></i></a></td>
@@ -58,6 +62,7 @@
                                 <!-- @endif -->
                             <!-- @endforeach -->
                             <!-- @endisset -->
+                         </tbody>
                      </table>
                   </fieldset>
                </div>

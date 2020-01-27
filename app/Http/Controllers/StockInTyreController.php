@@ -162,6 +162,7 @@ class StockInTyreController extends Controller
                 );
 
                 $stockInObject = StockIn::create( $dataArray );
+                
                 unset($dataArray);
                 
                 $data['stock_in_object'] = $stockInObject;

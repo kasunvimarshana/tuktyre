@@ -33,7 +33,7 @@ class Colour extends Model
      *
      * @var array
      */
-    protected $fillable = array();
+    protected $fillable = array('id', 'is_visible', 'is_active', 'slug', 'code', 'key_id', 'key_value', 'status_id', 'colour_id_parent', 'date_time_create');
 
     /**
      * The attributes that should be hidden for arrays.

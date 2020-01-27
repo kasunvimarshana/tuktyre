@@ -1,6 +1,6 @@
 <?php
 
-/* String Slug */
+/* str_slug */
 /*
 if(!function_exists('str_slug')){
     function str_slug($slug_string = null){
@@ -14,7 +14,7 @@ if(!function_exists('str_slug')){
 }
 */
 
-/* String Slug */
+/* str_slug */
 if(!function_exists('str_slug')){
     function str_slug($slug_string = null){
         //return $slug_string;
@@ -39,6 +39,15 @@ if(!function_exists('str_slug')){
         }
         // Return result
         return $slug_string;
+    }
+}
+
+/* is_true */
+if(!function_exists('is_true')){
+    function is_true($argument_boolean, $return_null = false){
+        $value_boolean = (is_string($argument_boolean) ? (filter_var($argument_boolean, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)) : (bool) $argument_boolean);
+        //$value_boolean = boolval( $value_boolean );
+        return ( $value_boolean === null && !$return_null ? false : $value_boolean );
     }
 }
 

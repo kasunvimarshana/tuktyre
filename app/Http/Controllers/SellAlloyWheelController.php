@@ -32,6 +32,10 @@ use Illuminate\Support\Facades\Route;
 //use App\Http\Resources\CommonResponseResource as CommonResponseResource;
 //use App\Enums\HTTPStatusCodeEnum as HTTPStatusCodeEnum;
 use App\Item as Item;
+use App\UserVehicle as UserVehicle;
+use App\StockIn;
+use App\User;
+use App\Sell;
 
 class SellAlloyWheelController extends Controller
 {
@@ -66,31 +70,72 @@ class SellAlloyWheelController extends Controller
         try {
             // Start transaction!
             DB::beginTransaction();
-            /* select stock data */
-            $stockInObject = new StockIn();
-            $stockInObject = $stockInObject->where("is_visible", "=", true);
-            $stockInObject = $stockInObject->where("is_active", "=", true);
-            $stockInObject = $stockInObject->whereHas('item', function($query){
-                //$query->where('key', '=', 'value');
-                $query = $query->where('item_id_parent', '=', '2');
-                $query = $query->where('is_stockable', '=', true);
-            });
-            $stockInObject = $stockInObject->select('*', DB::raw('SUM(quantity) as quantity_sum'));
-            $stockInObject = $stockInObject->groupBy('item_id');
-            $stockInObject = $stockInObject->with(['item']);
-            $stockInObjectArray = $stockInObject->get();
             
-            $data['stockInObjectArray'] = $stockInObjectArray;
+            /* select sell data */
+            $sellObject = new Sell();
+            $sellObject = $sellObject->where("is_visible", "=", true);
+            $sellObject = $sellObject->where("is_active", "=", true);
+            
+            $sellObject = $sellObject->whereHas('sellItems', function($query){
+                //$query->where('key', '=', 'value');
+                $query = $query->whereHas('item', function($query){
+                    $query = $query->where('item_id_parent', '=', '4');
+                });
+            });
+            
+            $sellObject = $sellObject->orderBy('id');
+            $sellObject = $sellObject->with(['sellItems', 'userVehicleCustomer']);
+            $sellObjectArray = $sellObject->get();
+            
+            $data['sellObjectArray'] = $sellObjectArray;
             
             /* select item data */
             $itemObject = new Item();
             $itemObject = $itemObject->where("is_visible", "=", true);
             $itemObject = $itemObject->where("is_active", "=", true);
-            $itemObject = $itemObject->where('item_id_parent', '=', '2');
+            $itemObject = $itemObject->where('item_id_parent', '=', '4');
             $itemObject = $itemObject->where('is_stockable', '=', true);
             $itemObjectArray = $itemObject->get();
             
             $data['itemObjectArray'] = $itemObjectArray;
+            
+            /* select user data */
+            $userObjectEmployee = new User();
+            $userObjectEmployee = $userObjectEmployee->where("is_visible", "=", true);
+            $userObjectEmployee = $userObjectEmployee->where("is_active", "=", true);
+            $userObjectEmployee = $userObjectEmployee->whereHas('employee', function($query){
+                //$query->where('key', '=', 'value');
+                //$query = $query->where('is_visible', '=', true);
+                //$query = $query->where('is_active', '=', true);
+            });
+            $userObjectEmployeeArray = $userObjectEmployee->get();
+            
+            $data['userObjectEmployeeArray'] = $userObjectEmployeeArray;
+            
+            /* select user data */
+            $userObjectCustomer = new User();
+            $userObjectCustomer = $userObjectCustomer->where("is_visible", "=", true);
+            $userObjectCustomer = $userObjectCustomer->where("is_active", "=", true);
+            $userObjectCustomer = $userObjectCustomer->whereHas('customer', function($query){
+                //$query->where('key', '=', 'value');
+                //$query = $query->where('is_visible', '=', true);
+                //$query = $query->where('is_active', '=', true);
+            });
+            $userObjectCustomerArray = $userObjectCustomer->get();
+            
+            $data['userObjectCustomerArray'] = $userObjectCustomerArray;
+            
+            /* select user data */
+            $userVehicleObject = new UserVehicle();
+            //$userVehicleObject = $userVehicleObject->where("is_visible", "=", true);
+            //$userVehicleObject = $userVehicleObject->where("is_active", "=", true);
+            $userVehicleObject = $userVehicleObject->whereHas('user', function($query){
+                //$query->where('key', '=', 'value');
+            });
+            $userVehicleObjectArray = $userVehicleObject->get();
+            
+            $data['userVehicleObjectArray'] = $userVehicleObjectArray;
+            
             //unset($dataArray);
             // Commit transaction!
             DB::commit();
@@ -143,32 +188,67 @@ class SellAlloyWheelController extends Controller
                 */
                 
                 $dataArray = array(
-                    'id' => $request->input('id'),
+                    //'id' => $request->input('id'),
                     'is_visible' => true,
                     'is_active' => true,
+                    //'code' => $request->input('code'),
                     //'status_id' => $request->input('status_id'),
-                    'item_id' => $request->input('item_id'),
-                    'quantity' => $request->input('quantity'),
-                    //'stockable_type' => $request->input('stockable_type'),
-                    //'stockable_id' => $request->input('stockable_id'),
-                    //'referenceable_type' => $request->input('referenceable_type'),
-                    //'referenceable_id' => $request->input('referenceable_id'),
-                    //'activity_id' => $request->input('activity_id'),
-                    //'transaction_type_id' => $request->input('transaction_type_id'),
+                    'amount' => $request->input('amount'),
+                    'amount_discount' => $request->input('amount_discount'),
+                    'amount_down_payment' => $request->input('amount_down_payment'),
+                    'amount_credit' => $request->input('amount_credit'),
+                    //'user_id_create' => $request->input('user_id_create'),
+                    //'user_id_customer' => $request->input('user_id_customer'),
+                    'user_id_employee' => $request->input('user_id_employee'),
+                    'user_vehicle_id_customer' => $request->input('user_vehicle_id_customer'),
+                    //'description' => $request->input('description'),
                     //'company_id' => $request->input('company_id'),
                     //'strategic_business_unit_id' => $request->input('strategic_business_unit_id'),
                     //'date_time_create' => $request->input('date_time_create'),
                 );
+                
+                $sellObject = new Sell();
+                $sellObject = $sellObject->create( $dataArray );
 
-                $stockInObject = StockIn::create( $dataArray );
                 unset($dataArray);
                 
-                $data['stock_in_object'] = $stockInObject;
+                //$data['modelObject'] = $mdelObject;
+                
+                if( $sellObject ){
+                    //
+                    $sellObjectArray = array(
+                        $sellObject->sellItems()->firstOrCreate([
+                            //'id' => $request->input('id'),
+                            'is_visible' => true,
+                            'is_active' => true,
+                            //'status_id' => $request->input('status_id'),
+                            'sell_id' => $sellObject->id,
+                            'item_id' => $request->input('item_id'),
+                            'unit_price' => $request->input('unit_price'),
+                            'quantity' => $request->input('quantity'),
+                            //'referenceable_type' => $request->input('referenceable_type'),
+                            //'referenceable_id' => $request->input('referenceable_id'),
+                            //'date_time_create' => $request->input('date_time_create'),
+                        ])
+                    );
+                    $sellObject->sellItems()->saveMany( $sellObjectArray );
+                }
+                
+                if( (($request->has('item_id')) && ($request->filled('item_id'))) ){
+                    $temp_item_id = $request->input('item_id');
+                    $temp_quantity = $request->input('quantity');
+                    $stockInObject = new StockIn();
+                    $stockInObject = $stockInObject->where('item_id', '=', $temp_item_id)->first();
+                    if( $stockInObject ){
+                        $stockInObject->quantity = ($stockInObject->quantity - $temp_quantity);
+                        $stockInObject->save();
+                    }
+                }
 
                 unset($dataArray);
                 // Commit transaction!
                 DB::commit();
-            }catch(Exception $e){
+            }catch(Exception $e){dd($e);
                 // Rollback transaction!
                 DB::rollback(); 
                 //return redirect()->back()->withInput();

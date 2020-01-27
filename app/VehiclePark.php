@@ -33,7 +33,7 @@ class VehiclePark extends Model
      *
      * @var array
      */
-    protected $fillable = array();
+    protected $fillable = array('id', 'is_visible', 'is_active', 'park_id', 'status_id', 'company_id', 'strategic_business_unit_id', 'date_time_create');
 
     /**
      * The attributes that should be hidden for arrays.

@@ -75,11 +75,14 @@ class SellTyreController extends Controller
             $sellObject = new Sell();
             $sellObject = $sellObject->where("is_visible", "=", true);
             $sellObject = $sellObject->where("is_active", "=", true);
-            /*
+            
             $sellObject = $sellObject->whereHas('sellItems', function($query){
                 //$query->where('key', '=', 'value');
+                $query = $query->whereHas('item', function($query){
+                    $query = $query->where('item_id_parent', '=', '2');
+                });
             });
-            */
+            
             $sellObject = $sellObject->orderBy('id');
             $sellObject = $sellObject->with(['sellItems', 'userVehicleCustomer']);
             $sellObjectArray = $sellObject->get();
@@ -185,32 +188,67 @@ class SellTyreController extends Controller
                 */
                 
                 $dataArray = array(
-                    'id' => $request->input('id'),
+                    //'id' => $request->input('id'),
                     'is_visible' => true,
                     'is_active' => true,
+                    //'code' => $request->input('code'),
                     //'status_id' => $request->input('status_id'),
-                    'item_id' => $request->input('item_id'),
-                    'quantity' => $request->input('quantity'),
-                    //'stockable_type' => $request->input('stockable_type'),
-                    //'stockable_id' => $request->input('stockable_id'),
-                    //'referenceable_type' => $request->input('referenceable_type'),
-                    //'referenceable_id' => $request->input('referenceable_id'),
-                    //'activity_id' => $request->input('activity_id'),
-                    //'transaction_type_id' => $request->input('transaction_type_id'),
+                    'amount' => $request->input('amount'),
+                    'amount_discount' => $request->input('amount_discount'),
+                    'amount_down_payment' => $request->input('amount_down_payment'),
+                    'amount_credit' => $request->input('amount_credit'),
+                    //'user_id_create' => $request->input('user_id_create'),
+                    //'user_id_customer' => $request->input('user_id_customer'),
+                    'user_id_employee' => $request->input('user_id_employee'),
+                    'user_vehicle_id_customer' => $request->input('user_vehicle_id_customer'),
+                    //'description' => $request->input('description'),
                     //'company_id' => $request->input('company_id'),
                     //'strategic_business_unit_id' => $request->input('strategic_business_unit_id'),
                     //'date_time_create' => $request->input('date_time_create'),
                 );
+                
+                $sellObject = new Sell();
+                $sellObject = $sellObject->create( $dataArray );
 
-                //$stockInObject = StockIn::create( $dataArray );
                 unset($dataArray);
                 
-                //$data['stock_in_object'] = $stockInObject;
+                //$data['modelObject'] = $mdelObject;
+                
+                if( $sellObject ){
+                    //
+                    $sellObjectArray = array(
+                        $sellObject->sellItems()->firstOrCreate([
+                            //'id' => $request->input('id'),
+                            'is_visible' => true,
+                            'is_active' => true,
+                            //'status_id' => $request->input('status_id'),
+                            'sell_id' => $sellObject->id,
+                            'item_id' => $request->input('item_id'),
+                            'unit_price' => $request->input('unit_price'),
+                            'quantity' => $request->input('quantity'),
+                            //'referenceable_type' => $request->input('referenceable_type'),
+                            //'referenceable_id' => $request->input('referenceable_id'),
+                            //'date_time_create' => $request->input('date_time_create'),
+                        ])
+                    );
+                    $sellObject->sellItems()->saveMany( $sellObjectArray );
+                }
+                
+                if( (($request->has('item_id')) && ($request->filled('item_id'))) ){
+                    $temp_item_id = $request->input('item_id');
+                    $temp_quantity = $request->input('quantity');
+                    $stockInObject = new StockIn();
+                    $stockInObject = $stockInObject->where('item_id', '=', $temp_item_id)->first();
+                    if( $stockInObject ){
+                        $stockInObject->quantity = ($stockInObject->quantity - $temp_quantity);
+                        $stockInObject->save();
+                    }
+                }
 
                 unset($dataArray);
                 // Commit transaction!
                 DB::commit();
-            }catch(Exception $e){
+            }catch(Exception $e){dd($e);
                 // Rollback transaction!
                 DB::rollback(); 
                 //return redirect()->back()->withInput();

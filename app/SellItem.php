@@ -41,7 +41,7 @@ class SellItem extends Model
      * @var array
      */
     protected $hidden = array();
-
+     
     /**
      * The attributes that should be cast to native types.
      *
@@ -111,6 +111,11 @@ class SellItem extends Model
     //one to many (inverse)
     public function sell(){
         return $this->belongsTo('App\Sell', 'sell_id', 'id');
+    }
+    
+    //one to many (inverse)
+    public function item(){
+        return $this->belongsTo('App\Item', 'item_id', 'id');
     }
     
     /*
