@@ -33,7 +33,7 @@ class StrategicBusinessUnit extends Model
      *
      * @var array
      */
-    protected $fillable = array();
+    protected $fillable = array('id', 'is_visible', 'is_active', 'slug', 'code', 'name', 'name_display', 'address', 'latitude', 'longitude', 'description', 'image_uri', 'status_id', 'strategic_business_unit_id_parent', 'company_id', 'date_time_create');
 
     /**
      * The attributes that should be hidden for arrays.

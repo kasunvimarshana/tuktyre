@@ -33,7 +33,7 @@ class Company extends Model
      *
      * @var array
      */
-    protected $fillable = array();
+    protected $fillable = array('id', 'is_visible', 'is_active', 'slug', 'code', 'name', 'name_display', 'address', 'latitude', 'longitude', 'description', 'image_uri', 'status_id', 'company_id_parent', 'date_time_create');
 
     /**
      * The attributes that should be hidden for arrays.

@@ -7,9 +7,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class CreateCashOutsTable extends Migration
+class CreateStockOutItemsTable extends Migration
 {
-    protected $table_name_1 = "cash_outs";
+    protected $table_name_1 = "stock_out_items";
     /**
      * Run the migrations.
      *
@@ -32,16 +32,24 @@ class CreateCashOutsTable extends Migration
             //$table->unsignedBigInteger('pk')->nullable()->default(0)->comment('comment');
             $table->boolean('is_visible')->index()->nullable()->default(false)->comment('comment');
             $table->boolean('is_active')->index()->nullable()->default(false)->comment('comment');
+            //$table->string('code')->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->nullableMorphs('cashable');
-            $table->enum('sign', ['+', '-'])->index()->nullable()->comment('comment');
-            $table->double('amount')->index()->nullable()->default(0)->comment('comment');
-            $table->double('sign_amount')->index()->nullable()->default(0)->comment('comment');
-            $table->unsignedBigInteger('company_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('strategic_business_unit_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('activity_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('transaction_type_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('user_id_create')->unsigned()->index()->nullable()->comment('comment');
+            $table->unsignedBigInteger('item_id')->unsigned()->index()->nullable()->comment('comment');
+            $table->double('unit_price')->index()->nullable()->default(0)->comment('comment');
+            //$table->double('unit_price_buy')->index()->nullable()->default(0)->comment('comment');
+            //$table->double('unit_price_sell')->index()->nullable()->default(0)->comment('comment');
+            //$table->unsignedBigInteger('measure_unit_id')->unsigned()->index()->nullable()->comment('comment');
+            $table->double('quantity')->index()->nullable()->default(0)->comment('comment');
+            //$table->enum('sign', ['+', '-'])->index()->nullable()->comment('comment');
+            //$table->double('sign_quantity')->index()->nullable()->default(0)->comment('comment');
+            //$table->text('description')->nullable()->default(null)->comment('comment');
+            $table->nullableMorphs('stockable');
+            $table->nullableMorphs('referenceable');
+            $table->unsignedBigInteger('stock_out_id')->unsigned()->index()->nullable()->comment('comment');
+            //$table->unsignedBigInteger('activity_id')->unsigned()->index()->nullable()->comment('comment');
+            //$table->unsignedBigInteger('transaction_type_id')->unsigned()->index()->nullable()->comment('comment');
+            //$table->unsignedBigInteger('company_id')->unsigned()->index()->nullable()->comment('comment');
+            //$table->unsignedBigInteger('strategic_business_unit_id')->unsigned()->index()->nullable()->comment('comment');
             $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
         });
         

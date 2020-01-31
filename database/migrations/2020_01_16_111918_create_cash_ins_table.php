@@ -41,6 +41,7 @@ class CreateCashInsTable extends Migration
             $table->unsignedBigInteger('strategic_business_unit_id')->unsigned()->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('activity_id')->unsigned()->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('transaction_type_id')->unsigned()->index()->nullable()->comment('comment');
+            $table->unsignedBigInteger('user_id_create')->unsigned()->index()->nullable()->comment('comment');
             $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
         });
         

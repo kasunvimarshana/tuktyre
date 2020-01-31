@@ -45,6 +45,7 @@ class CreateCreditCustomersTable extends Migration
             $table->boolean('is_close')->index()->nullable()->default(false)->comment('comment');
             $table->double('installment_count')->index()->nullable()->default(0)->comment('comment');
             $table->double('installment_amount')->index()->nullable()->default(0)->comment('comment');
+            $table->unsignedBigInteger('user_id_create')->unsigned()->index()->nullable()->comment('comment');
             $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
             //$table->timestamp('date_time_deadline')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
             //$table->timestamp('date_time_remind')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');

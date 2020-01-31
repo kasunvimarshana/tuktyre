@@ -33,7 +33,7 @@ class StockIn extends Model
      *
      * @var array
      */
-    protected $fillable = array('id', 'is_visible', 'is_active', 'status_id', 'item_id', 'unit_price', 'quantity', 'stockable_type', 'stockable_id', 'referenceable_type', 'referenceable_id', 'activity_id', 'transaction_type_id', 'company_id', 'strategic_business_unit_id', 'date_time_create');
+    protected $fillable = array('id', 'is_visible', 'is_active', 'status_id', 'stockable_type', 'stockable_id', 'referenceable_type', 'referenceable_id', 'activity_id', 'transaction_type_id', 'company_id', 'strategic_business_unit_id', 'date_time_create');
 
     /**
      * The attributes that should be hidden for arrays.

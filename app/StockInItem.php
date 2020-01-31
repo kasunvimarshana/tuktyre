@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
-class UserType extends Model
+class StockInItem extends Model
 {
     //
     //protected $table = "table";
@@ -33,8 +33,8 @@ class UserType extends Model
      *
      * @var array
      */
-    protected $fillable = array('id', 'is_visible', 'is_active', 'slug', 'code', 'status_id', 'user_type_id_parent', 'date_time_create');
-
+    protected $fillable = array('id', 'is_visible', 'is_active', 'status_id', 'item_id', 'unit_price', 'quantity', 'stockable_type', 'stockable_id', 'referenceable_type', 'referenceable_id', 'stock_in_id', 'date_time_create');
+    
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -106,6 +106,11 @@ class UserType extends Model
         static::creating(function( $model ){ /**/ });
         
         static::saving(function( $model ){ /**/ });
+    }
+    
+    //one to many (inverse)
+    public function item(){
+        return $this->belongsTo('App\Item', 'item_id', 'id');
     }
     
     /*

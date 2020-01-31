@@ -34,12 +34,12 @@ class CreateStockOutsTable extends Migration
             $table->boolean('is_active')->index()->nullable()->default(false)->comment('comment');
             //$table->string('code')->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('item_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->double('unit_price')->index()->nullable()->default(0)->comment('comment');
+            //$table->unsignedBigInteger('item_id')->unsigned()->index()->nullable()->comment('comment');
+            //$table->double('unit_price')->index()->nullable()->default(0)->comment('comment');
             //$table->double('unit_price_buy')->index()->nullable()->default(0)->comment('comment');
             //$table->double('unit_price_sell')->index()->nullable()->default(0)->comment('comment');
             //$table->unsignedBigInteger('measure_unit_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->double('quantity')->index()->nullable()->default(0)->comment('comment');
+            //$table->double('quantity')->index()->nullable()->default(0)->comment('comment');
             //$table->enum('sign', ['+', '-'])->index()->nullable()->comment('comment');
             //$table->double('sign_quantity')->index()->nullable()->default(0)->comment('comment');
             //$table->text('description')->nullable()->default(null)->comment('comment');
@@ -49,6 +49,7 @@ class CreateStockOutsTable extends Migration
             $table->unsignedBigInteger('transaction_type_id')->unsigned()->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('company_id')->unsigned()->index()->nullable()->comment('comment');
             $table->unsignedBigInteger('strategic_business_unit_id')->unsigned()->index()->nullable()->comment('comment');
+            $table->unsignedBigInteger('user_id_create')->unsigned()->index()->nullable()->comment('comment');
             $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
         });
         

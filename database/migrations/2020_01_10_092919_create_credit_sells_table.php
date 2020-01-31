@@ -36,6 +36,7 @@ class CreateCreditSellsTable extends Migration
             $table->double('amount')->index()->nullable()->default(0)->comment('comment');
             //$table->text('description')->nullable()->default(null)->comment('comment');
             $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
+            $table->boolean('is_close')->index()->nullable()->default(false)->comment('comment');
             $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
         });
         
