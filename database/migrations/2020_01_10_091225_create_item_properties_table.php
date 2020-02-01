@@ -30,13 +30,13 @@ class CreateItemPropertiesTable extends Migration
             $table->bigIncrements('id')->comment('comment');
             $table->timestamps();
             //$table->unsignedBigInteger('pk')->nullable()->default(0)->comment('comment');
-            $table->boolean('is_visible')->index()->nullable()->default(false)->comment('comment');
-            $table->boolean('is_active')->index()->nullable()->default(false)->comment('comment');
-            $table->unsignedBigInteger('item_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('property_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->string('property_value')->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
+            $table->boolean('is_visible')->nullable()->default(false)->comment('comment');//->index()
+            $table->boolean('is_active')->nullable()->default(false)->comment('comment');//->index()
+            $table->unsignedBigInteger('item_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('property_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->string('property_value')->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('status_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->timestamp('date_time_create')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
         });
         
         Schema::table($this->table_name_1, function($table) {

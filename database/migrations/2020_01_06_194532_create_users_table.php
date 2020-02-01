@@ -35,35 +35,35 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id')->comment('comment');
             $table->timestamps();
             //$table->unsignedBigInteger('pk')->nullable()->default(0)->comment('comment');
-            $table->boolean('is_visible')->index()->nullable()->default(false)->comment('comment');
-            $table->boolean('is_active')->index()->nullable()->default(false)->comment('comment');
-            $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->string('code')->index()->nullable()->comment('comment');
-            $table->string('nic_number')->index()->nullable()->comment('comment');
-            $table->string('driving_licence_number')->index()->nullable()->comment('comment');
-            //$table->string('name_first')->index()->nullable()->comment('comment');
-            //$table->string('name_last')->index()->nullable()->comment('comment');
-            $table->string('name_full')->index()->nullable()->comment('comment');
-            $table->string('name_display')->index()->nullable()->comment('comment');
-            $table->string('phone_number')->index()->nullable()->comment('comment');
-            $table->string('email')->index()->nullable()->comment('comment');
-            $table->string('username')->index()->nullable()->comment('comment');
-            $table->string('password')->index()->nullable()->comment('comment');
+            $table->boolean('is_visible')->nullable()->default(false)->comment('comment');//->index()
+            $table->boolean('is_active')->nullable()->default(false)->comment('comment');//->index()
+            $table->unsignedBigInteger('status_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->string('code')->nullable()->comment('comment');//->index()
+            $table->string('nic_number')->nullable()->comment('comment');//->index()
+            $table->string('driving_licence_number')->nullable()->comment('comment');//->index()
+            //$table->string('name_first')->nullable()->comment('comment');//->index()
+            //$table->string('name_last')->nullable()->comment('comment');//->index()
+            $table->string('name_full')->nullable()->comment('comment');//->index()
+            $table->string('name_display')->nullable()->comment('comment');//->index()
+            $table->string('phone_number')->nullable()->comment('comment');//->index()
+            $table->string('email')->nullable()->comment('comment');//->index()
+            $table->string('username')->nullable()->comment('comment');//->index()
+            $table->string('password')->nullable()->comment('comment');//->index()
             $table->rememberToken()->comment('comment');
             $table->text('image_uri')->nullable()->default(null)->comment('uniform resource identifier'); 
-            $table->unsignedBigInteger('company_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('strategic_business_unit_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->string('code_active')->index()->nullable()->comment('comment');
+            $table->unsignedBigInteger('company_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('strategic_business_unit_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->string('code_active')->nullable()->comment('comment');//->index()
             
-            $table->unsignedBigInteger('user_type_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('vehicle_park_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->string('registration_number')->index()->nullable()->comment('comment');
-            $table->string('address')->index()->nullable()->comment('comment');
-            $table->double('latitude')->index()->nullable()->default(0)->comment('comment');
-            $table->double('longitude')->index()->nullable()->default(0)->comment('comment');
+            $table->unsignedBigInteger('user_type_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('vehicle_park_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->string('registration_number')->nullable()->comment('comment');//->index()
+            $table->string('address')->nullable()->comment('comment');//->index()
+            $table->double('latitude')->nullable()->default(0)->comment('comment');//->index()
+            $table->double('longitude')->nullable()->default(0)->comment('comment');//->index()
             $table->text('description')->nullable()->default(null)->comment('comment');
-            $table->unsignedBigInteger('user_id_create')->unsigned()->index()->nullable()->comment('comment');
-            $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
+            $table->unsignedBigInteger('user_id_create')->unsigned()->nullable()->comment('comment');//->index()
+            $table->timestamp('date_time_create')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
             
             //$table->boolean('is_multi_factor_authentication')->index()->nullable()->default(false)->comment('comment');
             //$table->boolean('is_onetime_authentication')->index()->nullable()->default(false)->comment('comment');

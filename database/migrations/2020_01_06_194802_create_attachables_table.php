@@ -30,19 +30,19 @@ class CreateAttachablesTable extends Migration
             $table->bigIncrements('id')->comment('comment');
             $table->timestamps();
             //$table->unsignedBigInteger('pk')->nullable()->default(0)->comment('comment');
-            $table->boolean('is_visible')->index()->nullable()->default(false)->comment('comment');
-            $table->boolean('is_active')->index()->nullable()->default(false)->comment('comment');
-            $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
+            $table->boolean('is_visible')->nullable()->default(false)->comment('comment');//->index()
+            $table->boolean('is_active')->nullable()->default(false)->comment('comment');//->index()
+            $table->unsignedBigInteger('status_id')->unsigned()->nullable()->comment('comment');//->index()
             $table->nullableMorphs('attachable');
             $table->text('link_uri')->nullable()->default(null)->comment('comment');
-            $table->string('original_name')->index()->nullable()->comment('comment');
-            $table->string('display_name')->index()->nullable()->comment('comment');
-            $table->string('extension')->index()->nullable()->comment('comment');
-            $table->string('mime_type')->index()->nullable()->comment('comment');
-            $table->string('type')->index()->nullable()->comment('comment');
-            $table->double('size')->index()->nullable()->default(0)->comment('comment');
+            $table->string('original_name')->nullable()->comment('comment');//->index()
+            $table->string('display_name')->nullable()->comment('comment');//->index()
+            $table->string('extension')->nullable()->comment('comment');//->index()
+            $table->string('mime_type')->nullable()->comment('comment');//->index()
+            $table->string('type')->nullable()->comment('comment');//->index()
+            $table->double('size')->nullable()->default(0)->comment('comment');//->index()
             $table->binary('data')->nullable()->comment('comment');
-            $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
+            $table->timestamp('date_time_create')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
         });
         
         Schema::table($this->table_name_1, function($table) {

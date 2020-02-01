@@ -30,25 +30,30 @@ class CreateStatusesTable extends Migration
             $table->bigIncrements('id')->comment('comment');
             $table->timestamps();
             //$table->unsignedBigInteger('pk')->nullable()->default(0)->comment('comment');
-            $table->boolean('is_visible')->index()->nullable()->default(false)->comment('comment');
-            $table->boolean('is_active')->index()->nullable()->default(false)->comment('comment');
-            //$table->string('colour_id')->index()->nullable()->comment('comment');
-            $table->string('slug')->index()->nullable()->comment('comment'); // create-table
-            $table->string('code')->index()->nullable()->comment('comment');
-            $table->string('name')->index()->nullable()->comment('comment');
-            $table->string('name_display')->index()->nullable()->comment('comment');
-            //$table->string('key_id')->index()->nullable()->comment('comment');
-            //$table->string('key_value')->index()->nullable()->comment('comment');
+            $table->boolean('is_visible')->nullable()->default(false)->comment('comment');//->index()
+            $table->boolean('is_active')->nullable()->default(false)->comment('comment');//->index()
+            //$table->string('colour_id')->nullable()->comment('comment');//->index()
+            $table->string('slug')->nullable()->comment('comment');//->index() // create-table
+            $table->string('code')->nullable()->comment('comment');//->index()
+            $table->string('name')->nullable()->comment('comment');//->index()
+            $table->string('name_display')->nullable()->comment('comment');//->index()
+            //$table->string('key_id')->nullable()->comment('comment');//->index()
+            //$table->string('key_value')->nullable()->comment('comment');//->index()
             //$table->text('image_uri')->nullable()->default(null)->comment('uniform resource identifier'); 
-            $table->unsignedBigInteger('status_id_parent')->unsigned()->index()->nullable()->comment('comment');
-            //$table->timestamp('time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
+            $table->unsignedBigInteger('status_id_parent')->unsigned()->nullable()->comment('comment');//->index()
+            //$table->timestamp('time_create')->nullable()->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
             //$table->nullableMorphs('morph');
             //$table->softDeletes();
             //$table->dropPrimary('id');
             //$table->primary('id');
-            //$table->double('piority_order')->index()->nullable()->default(0)->comment('comment');
-            //$table->enum('sign', ['+', '-'])->index()->nullable()->comment('comment');
-            $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
+            //$table->double('piority_order')->nullable()->default(0)->comment('comment');//->index()
+            //$table->enum('sign', ['+', '-'])->nullable()->comment('comment');//->index()
+            $table->timestamp('date_time_create')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
+            /*
+            $table->nullableMorphs('referenceable');
+            $table->unsignedBigInteger('referenceable_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->string('referenceable_type')->nullable()->default(null)->comment('comment');//->index()
+            */
         });
         
         Schema::table($this->table_name_1, function($table) {

@@ -33,7 +33,7 @@ class Vehicle extends Model
      *
      * @var array
      */
-    protected $fillable = array();
+    protected $fillable = array('id', 'is_visible', 'is_active', 'is_tangible', 'slug', 'code', 'name', 'name_display', 'description', 'image_uri', 'status_id', 'vehicle_type_id', 'vehicle_licence_number', 'date_time_create');
 
     /**
      * The attributes that should be hidden for arrays.
@@ -111,6 +111,11 @@ class Vehicle extends Model
     //one to many (inverse)
     public function vehicleType(){
         return $this->belongsTo('App\VehicleType', 'vehicle_type_id', 'id');
+    }
+    
+    //one to many
+    public function userVehicles(){
+        return $this->hasMany('App\UserVehicle', 'vehicle_id', 'id');
     }
     
     /*

@@ -30,15 +30,15 @@ class CreateBuyItemsTable extends Migration
             $table->bigIncrements('id')->comment('comment');
             $table->timestamps();
             //$table->unsignedBigInteger('pk')->nullable()->default(0)->comment('comment');
-            $table->boolean('is_visible')->index()->nullable()->default(false)->comment('comment');
-            $table->boolean('is_active')->index()->nullable()->default(false)->comment('comment');
-            //$table->string('code')->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('buy_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('item_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->double('unit_price')->index()->nullable()->default(0)->comment('comment');
-            //$table->double('unit_price_buy')->index()->nullable()->default(0)->comment('comment');
-            //$table->double('unit_price_sell')->index()->nullable()->default(0)->comment('comment');
+            $table->boolean('is_visible')->nullable()->default(false)->comment('comment');//->index()
+            $table->boolean('is_active')->nullable()->default(false)->comment('comment');//->index()
+            //$table->string('code')->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('status_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('buy_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('item_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->double('unit_price')->nullable()->default(0)->comment('comment');//->index()
+            //$table->double('unit_price_buy')->nullable()->default(0)->comment('comment');//->index()
+            //$table->double('unit_price_sell')->nullable()->default(0)->comment('comment');//->index()
             //$table->unsignedBigInteger('measure_unit_id')->unsigned()->index()->nullable()->comment('comment');
             $table->double('quantity')->index()->nullable()->default(0)->comment('comment');
             //$table->text('description')->nullable()->default(null)->comment('comment');

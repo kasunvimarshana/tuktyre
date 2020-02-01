@@ -27,14 +27,14 @@ class CreateUserPermissionsTable extends Migration
             //$table->->uuid('id')->nullable()->default(0)->unique()->comment('universal unique identifier');
             //$table->dateTime('date_time')->nullable()->default('CURRENT_TIMESTAMP')->change();
             
-            $table->unsignedBigInteger('user_id')->unsigned()->index()->comment('comment');
-            $table->unsignedBigInteger('permission_id')->unsigned()->index()->comment('comment');
+            $table->unsignedBigInteger('user_id')->unsigned()->comment('comment');//->index()
+            $table->unsignedBigInteger('permission_id')->unsigned()->comment('comment');//->index()
             //FOREIGN KEY CONSTRAINTS
             //$table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             //$table->foreign('permission_id')->references('id')->on('permissions')->onUpdate('cascade')->onDelete('cascade');
             //SETTING THE PRIMARY KEYS
             //$table->primary(['user_id','permission_id']);
-            $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
+            $table->timestamp('date_time_create')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
         });
         
         Schema::table($this->table_name_1, function($table) {

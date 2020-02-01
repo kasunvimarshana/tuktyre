@@ -30,26 +30,28 @@ class CreateEmployeeCommissionInsTable extends Migration
             $table->bigIncrements('id')->comment('comment');
             $table->timestamps();
             //$table->unsignedBigInteger('pk')->nullable()->default(0)->comment('comment');
-            $table->boolean('is_visible')->index()->nullable()->default(false)->comment('comment');
-            $table->boolean('is_active')->index()->nullable()->default(false)->comment('comment');
-            $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('user_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->nullableMorphs('referenceable');
-            $table->double('amount')->index()->nullable()->default(0)->comment('comment');
-            //$table->enum('sign', ['+', '-'])->index()->nullable()->comment('comment');
-            //$table->double('sign_amount')->index()->nullable()->default(0)->comment('comment');
-            $table->unsignedBigInteger('company_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('strategic_business_unit_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('activity_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('transaction_type_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->boolean('is_close')->index()->nullable()->default(false)->comment('comment');
-            $table->double('installment_count')->index()->nullable()->default(0)->comment('comment');
-            $table->double('installment_amount')->index()->nullable()->default(0)->comment('comment');
-            $table->unsignedBigInteger('user_id_create')->unsigned()->index()->nullable()->comment('comment');
-            $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
-            //$table->timestamp('date_time_deadline')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
-            //$table->timestamp('date_time_remind')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
-            //$table->timestamp('date_time_close')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
+            $table->boolean('is_visible')->nullable()->default(false)->comment('comment');//->index()
+            $table->boolean('is_active')->nullable()->default(false)->comment('comment');//->index()
+            $table->unsignedBigInteger('status_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('user_id')->unsigned()->nullable()->comment('comment');//->index()
+            //$table->nullableMorphs('referenceable');
+            $table->unsignedBigInteger('referenceable_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->string('referenceable_type')->nullable()->default(null)->comment('comment');//->index()
+            $table->double('amount')->nullable()->default(0)->comment('comment');//->index()
+            //$table->enum('sign', ['+', '-'])->nullable()->comment('comment');//->index()
+            //$table->double('sign_amount')->nullable()->default(0)->comment('comment');//->index()
+            $table->unsignedBigInteger('company_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('strategic_business_unit_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('activity_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('transaction_type_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->boolean('is_close')->nullable()->default(false)->comment('comment');//->index()
+            $table->double('installment_count')->nullable()->default(0)->comment('comment');//->index()
+            $table->double('installment_amount')->nullable()->default(0)->comment('comment');//->index()
+            $table->unsignedBigInteger('user_id_create')->unsigned()->nullable()->comment('comment');//->index()
+            $table->timestamp('date_time_create')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
+            //$table->timestamp('date_time_deadline')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
+            //$table->timestamp('date_time_remind')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
+            //$table->timestamp('date_time_close')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
         });
         
         Schema::table($this->table_name_1, function($table) {

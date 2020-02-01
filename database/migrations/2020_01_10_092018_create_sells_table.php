@@ -30,24 +30,24 @@ class CreateSellsTable extends Migration
             $table->bigIncrements('id')->comment('comment');
             $table->timestamps();
             //$table->unsignedBigInteger('pk')->nullable()->default(0)->comment('comment');
-            $table->boolean('is_visible')->index()->nullable()->default(false)->comment('comment');
-            $table->boolean('is_active')->index()->nullable()->default(false)->comment('comment');
-            $table->string('code')->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->double('amount')->index()->nullable()->default(0)->comment('comment');
-            //$table->double('amount_payment')->index()->nullable()->default(0)->comment('comment');
-            $table->double('amount_discount')->index()->nullable()->default(0)->comment('comment');
-            $table->double('amount_down_payment')->index()->nullable()->default(0)->comment('comment');
-            $table->double('amount_credit')->index()->nullable()->default(0)->comment('comment');
-            $table->unsignedBigInteger('user_id_create')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('user_id_customer')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('user_id_employee')->unsigned()->index()->nullable()->comment('comment');
-            //$table->unsignedBigInteger('vehicle_id_customer')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('user_vehicle_id_customer')->unsigned()->index()->nullable()->comment('comment');
+            $table->boolean('is_visible')->nullable()->default(false)->comment('comment');//->index()
+            $table->boolean('is_active')->nullable()->default(false)->comment('comment');//->index()
+            $table->string('code')->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('status_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->double('amount')->nullable()->default(0)->comment('comment');//->index()
+            //$table->double('amount_payment')->nullable()->default(0)->comment('comment');//->index()
+            $table->double('amount_discount')->nullable()->default(0)->comment('comment');//->index()
+            $table->double('amount_down_payment')->nullable()->default(0)->comment('comment');//->index()
+            $table->double('amount_credit')->nullable()->default(0)->comment('comment');//->index()
+            $table->unsignedBigInteger('user_id_create')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('user_id_customer')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('user_id_employee')->unsigned()->nullable()->comment('comment');//->index()
+            //$table->unsignedBigInteger('vehicle_id_customer')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('user_vehicle_id_customer')->unsigned()->nullable()->comment('comment');//->index()
             $table->text('description')->nullable()->default(null)->comment('comment');
-            $table->unsignedBigInteger('company_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('strategic_business_unit_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
+            $table->unsignedBigInteger('company_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('strategic_business_unit_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->timestamp('date_time_create')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
         });
         
         Schema::table($this->table_name_1, function($table) {

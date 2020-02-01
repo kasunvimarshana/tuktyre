@@ -30,27 +30,27 @@ class CreateItemsTable extends Migration
             $table->bigIncrements('id')->comment('comment');
             $table->timestamps();
             //$table->unsignedBigInteger('pk')->nullable()->default(0)->comment('comment');
-            $table->boolean('is_visible')->index()->nullable()->default(false)->comment('comment');
-            $table->boolean('is_active')->index()->nullable()->default(false)->comment('comment');
-            $table->string('slug')->index()->nullable()->comment('comment'); // create-table
-            $table->string('code')->index()->nullable()->comment('comment');
-            $table->string('name')->index()->nullable()->comment('comment');
-            $table->string('name_display')->index()->nullable()->comment('comment');
+            $table->boolean('is_visible')->nullable()->default(false)->comment('comment');//->index()
+            $table->boolean('is_active')->nullable()->default(false)->comment('comment');//->index()
+            $table->string('slug')->nullable()->comment('comment');//->index() // create-table
+            $table->string('code')->nullable()->comment('comment');//->index()
+            $table->string('name')->nullable()->comment('comment');//->index()
+            $table->string('name_display')->nullable()->comment('comment');//->index()
             $table->text('description')->nullable()->default(null)->comment('comment');
             $table->text('image_uri')->nullable()->default(null)->comment('uniform resource identifier'); 
-            $table->double('unit_price_buy')->index()->nullable()->default(0)->comment('comment');
-            $table->double('unit_price_sell')->index()->nullable()->default(0)->comment('comment');
-            $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('measure_unit_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('product_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('category_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('manufacture_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('item_id_parent')->unsigned()->index()->nullable()->comment('comment');
-            $table->double('piority_order')->index()->nullable()->default(0)->comment('comment');
-            $table->boolean('is_parent')->index()->nullable()->default(false)->comment('comment');
-            $table->boolean('is_child')->index()->nullable()->default(false)->comment('comment');
-            $table->boolean('is_stockable')->index()->nullable()->default(false)->comment('comment');
-            $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
+            $table->double('unit_price_buy')->nullable()->default(0)->comment('comment');//->index()
+            $table->double('unit_price_sell')->nullable()->default(0)->comment('comment');//->index()
+            $table->unsignedBigInteger('status_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('measure_unit_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('product_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('category_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('manufacture_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('item_id_parent')->unsigned()->nullable()->comment('comment');//->index()
+            $table->double('piority_order')->nullable()->default(0)->comment('comment');//->index()
+            $table->boolean('is_parent')->nullable()->default(false)->comment('comment');//->index()
+            $table->boolean('is_child')->nullable()->default(false)->comment('comment');//->index()
+            $table->boolean('is_stockable')->nullable()->default(false)->comment('comment');//->index()
+            $table->timestamp('date_time_create')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
         });
         
         Schema::table($this->table_name_1, function($table) {

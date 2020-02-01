@@ -30,9 +30,9 @@ class CreatePermissionsTable extends Migration
             $table->bigIncrements('id')->comment('comment');
             $table->timestamps();
             //$table->unsignedBigInteger('pk')->nullable()->default(0)->comment('comment');
-            $table->string('slug')->index()->comment('comment'); // create-table
-            $table->string('name')->index()->comment('comment'); // create table
-            $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
+            $table->string('slug')->comment('comment');//->index() // create-table
+            $table->string('name')->comment('comment');//->index() // create table
+            $table->timestamp('date_time_create')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
         });
         
         Schema::table($this->table_name_1, function($table) {

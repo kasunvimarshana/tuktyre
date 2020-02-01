@@ -30,20 +30,20 @@ class CreateCompaniesTable extends Migration
             $table->bigIncrements('id')->comment('comment');
             $table->timestamps();
             //$table->unsignedBigInteger('pk')->nullable()->default(0)->comment('comment');
-            $table->boolean('is_visible')->index()->nullable()->default(false)->comment('comment');
-            $table->boolean('is_active')->index()->nullable()->default(false)->comment('comment');
-            $table->string('slug')->index()->nullable()->comment('comment'); // create-table
-            $table->string('code')->index()->nullable()->comment('comment');
-            $table->string('name')->index()->nullable()->comment('comment');
-            $table->string('name_display')->index()->nullable()->comment('comment');
-            $table->string('address')->index()->nullable()->comment('comment');
-            $table->double('latitude')->index()->nullable()->default(0)->comment('comment');
-            $table->double('longitude')->index()->nullable()->default(0)->comment('comment');
+            $table->boolean('is_visible')->nullable()->default(false)->comment('comment');//->index()
+            $table->boolean('is_active')->nullable()->default(false)->comment('comment');//->index()
+            $table->string('slug')->nullable()->comment('comment');//->index() // create-table
+            $table->string('code')->nullable()->comment('comment');//->index()
+            $table->string('name')->nullable()->comment('comment');//->index()
+            $table->string('name_display')->nullable()->comment('comment');//->index()
+            $table->string('address')->nullable()->comment('comment');//->index()
+            $table->double('latitude')->nullable()->default(0)->comment('comment');//->index()
+            $table->double('longitude')->nullable()->default(0)->comment('comment');//->index()
             $table->text('description')->nullable()->default(null)->comment('comment');
             $table->text('image_uri')->nullable()->default(null)->comment('uniform resource identifier'); 
-            $table->unsignedBigInteger('status_id')->unsigned()->index()->nullable()->comment('comment');
-            $table->unsignedBigInteger('company_id_parent')->unsigned()->index()->nullable()->comment('comment');
-            $table->timestamp('date_time_create')->nullable()->index()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');
+            $table->unsignedBigInteger('status_id')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('company_id_parent')->unsigned()->nullable()->comment('comment');//->index()
+            $table->timestamp('date_time_create')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
         });
         
         Schema::table($this->table_name_1, function($table) {

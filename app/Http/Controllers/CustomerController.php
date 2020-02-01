@@ -32,7 +32,9 @@ use Illuminate\Support\Facades\Route;
 //use App\Http\Resources\CommonResponseResource as CommonResponseResource;
 //use App\Enums\HTTPStatusCodeEnum as HTTPStatusCodeEnum;
 use App\User as User;
+use App\Vehicle as Vehicle;
 use App\UserVehicle as UserVehicle;
+use App\Enums\StatusEnum as StatusEnum;
 
 class CustomerController extends Controller
 {
@@ -129,11 +131,16 @@ class CustomerController extends Controller
                 }
                 */
                 
+                $configuration_company_id = $request->session()->get('configuration_company_id', null);
+                $configuration_strategic_business_unit_id = $request->session()->get('configuration_strategic_business_unit_id', null);
+                $configuration_user_id = $request->session()->get('configuration_user_id', null);
+                
                 $dataArray = array(
                     //'id' => $request->input('id'),
                     'is_visible' => true,
                     'is_active' => true,
-                    'status_id' => $request->input('status_id'),
+                    //'status_id' => $request->input('status_id'),
+                    'status_id' => StatusEnum::ENUM_DEFAULT,
                     'code' => $request->input('code'),
                     'nic_number' => $request->input('nic_number'),
                     'driving_licence_number' => $request->input('driving_licence_number'),
@@ -141,13 +148,12 @@ class CustomerController extends Controller
                     'name_display' => $request->input('name_display'),
                     'phone_number' => $request->input('phone_number'),
                     'email' => $request->input('email'),
-                    //'username' => $request->input('username'),
-                    'username' => $request->input('nic_number'),
+                    'username' => $request->input('username'),
                     'password' => Hash::make( $request->input('password') ),
                     //'remember_token' => $request->input('remember_token'),
                     //'image_uri' => $request->input('image_uri'),
-                    'company_id' => $request->input('company_id'),
-                    'strategic_business_unit_id' => $request->input('strategic_business_unit_id'),
+                    'company_id' => $configuration_company_id,
+                    'strategic_business_unit_id' => $configuration_strategic_business_unit_id,
                     //'code_active' => $request->input('code_active'),
                     'user_type_id' => $request->input('user_type_id'),
                     'vehicle_park_id' => $request->input('vehicle_park_id'),
@@ -156,7 +162,7 @@ class CustomerController extends Controller
                     'latitude' => $request->input('latitude'),
                     'longitude' => $request->input('longitude'),
                     'description' => $request->input('description'),
-                    'user_id_create' => $request->input('user_id_create'),
+                    'user_id_create' => $configuration_user_id,
                     //'date_time_create' => $request->input('date_time_create'),
                 );
                 
@@ -198,8 +204,8 @@ class CustomerController extends Controller
                             'is_active' => true,
                             'user_id' => $userObject->user_id,
                             //'status_id' => $userObject->status_id,
-                            //'company_id' => $userObject->company_id,
-                            //'strategic_business_unit_id' => $userObject->strategic_business_unit_id,
+                            //'company_id' => $configuration_company_id,
+                            //'strategic_business_unit_id' => $configuration_strategic_business_unit_id,
                             //'date_time_create' => $userObject->date_time_create,
                         ])
                     );
@@ -209,6 +215,8 @@ class CustomerController extends Controller
                 if( (($request->has('vehicle_licence_number')) && ($request->filled('vehicle_licence_number'))) ){
                     if( $userObject ){
                         $vehicle_licence_number = $request->input('vehicle_licence_number');
+                        
+                        $vehicleObject = new Vehicle();
                         
                         $userVehicleObjectArray = array(
                             $userObject->userVehicles()->firstOrCreate([

@@ -113,6 +113,11 @@ class UserVehicle extends Model
         return $this->belongsTo('App\User', 'user_id', 'id');
     }
     
+    //one to many (inverse)
+    public function vehicle(){
+        return $this->belongsTo('App\Vehicle', 'vehicle_id', 'id');
+    }
+    
     /*
     //one to many (inverse)
     public function status(){
