@@ -47,6 +47,7 @@ class CreateStockOutItemsTable extends Migration
             $table->nullableMorphs('stockable');
             $table->nullableMorphs('referenceable');
             $table->unsignedBigInteger('stock_out_id')->unsigned()->nullable()->comment('comment');//->index()
+            //$table->unsignedBigInteger('stock_in_item_id')->unsigned()->nullable()->comment('comment');//->index()
             //$table->unsignedBigInteger('activity_id')->unsigned()->nullable()->comment('comment');//->index()
             //$table->unsignedBigInteger('transaction_type_id')->unsigned()->nullable()->comment('comment');//->index()
             //$table->unsignedBigInteger('company_id')->unsigned()->nullable()->comment('comment');//->index()

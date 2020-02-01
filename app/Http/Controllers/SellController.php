@@ -33,8 +33,15 @@ use Illuminate\Support\Facades\Route;
 //use App\Enums\HTTPStatusCodeEnum as HTTPStatusCodeEnum;
 use App\StockIn as StockIn;
 use App\StockInItem as StockInItem;
+use App\StockOut as StockOut;
+use App\StockOutItem as StockOutItem;
 use App\Item as Item;
 use App\Enums\StatusEnum as StatusEnum;
+use App\Vehicle as Vehicle;
+use App\UserVehicle as UserVehicle;
+use App\User;
+use App\Sell;
+use App\SellItem;
 
 class SellController extends Controller
 {
@@ -97,46 +104,90 @@ class SellController extends Controller
                     'id' => $request->input('id'),
                     'is_visible' => true,
                     'is_active' => true,
+                    //'code' => $request->input('code'),
                     //'status_id' => $request->input('status_id'),
                     'status_id' => StatusEnum::ENUM_DEFAULT,
-                    //'stockable_type' => $request->input('stockable_type'),
-                    //'stockable_id' => $request->input('stockable_id'),
-                    //'referenceable_type' => $request->input('referenceable_type'),
-                    //'referenceable_id' => $request->input('referenceable_id'),
-                    //'activity_id' => $request->input('activity_id'),
-                    //'transaction_type_id' => $request->input('transaction_type_id'),
+                    'amount' => floatval( $request->input('amount') ),
+                    'amount_discount' => floatval( $request->input('amount_discount') ),
+                    'amount_down_payment' => floatval( $request->input('amount_down_payment') ),
+                    'amount_credit' => floatval( $request->input('amount_credit') ),
+                    'user_id_create' => $configuration_user_id,
+                    'user_id_customer' => $request->input('user_id_customer'),
+                    'user_id_employee' => $request->input('user_id_employee'),
+                    'user_vehicle_id_customer' => $request->input('user_vehicle_id_customer'),
+                    'description' => $request->input('description'),
                     'company_id' => $configuration_company_id,
                     'strategic_business_unit_id' => $configuration_strategic_business_unit_id,
-                    'user_id_create' => $configuration_user_id,
                     //'date_time_create' => $request->input('date_time_create'),
                 );
 
-                $stockInObject = StockIn::create( $dataArray );
+                $sellObject = Sell::create( $dataArray );
                 unset($dataArray);
                 
-                if( $stockInObject ){
+                if( $sellObject ){
                     //
-                    $stockInItemObjectArray = array(
-                        $stockInObject->stockInItems()->firstOrCreate([
+                    $sellItemObjectArray = array(
+                        $sellObject->sellItems()->firstOrCreate([
                             //'id' => $request->input('id'),
                             'is_visible' => true,
                             'is_active' => true,
                             'status_id' => $request->input('status_id'),
+                            'sell_id' => $sellObject->id,
                             'item_id' => $request->input('item_id'),
-                            //'unit_price' => $request->input('unit_price'),
-                            'quantity' => $request->input('quantity'),
-                            //'stockable_type' => $request->input('stockable_type'),
-                            //'stockable_id' => $request->input('stockable_id'),
+                            'unit_price' => floatval( $request->input('unit_price') ),
+                            'quantity' => floatval( $request->input('quantity') ),
                             //'referenceable_type' => $request->input('referenceable_type'),
                             //'referenceable_id' => $request->input('referenceable_id'),
-                            //'stock_in_id' => $request->input('stock_in_id'),
                             //'date_time_create' => $request->input('date_time_create'),
                         ])
                     );
-                    $stockInObject->stockInItems()->saveMany( $stockInItemObjectArray );
+                    $sellObject->sellItems()->saveMany( $sellItemObjectArray );
                 }
                 
-                $data['stock_in_object'] = $stockInObject;
+                if( $sellObject ){
+                    //
+                    $stockOutObject = StockOut::create([
+                        'id' => $request->input('id'),
+                        'is_visible' => true,
+                        'is_active' => true,
+                        //'status_id' => $request->input('status_id'),
+                        'status_id' => StatusEnum::ENUM_DEFAULT,
+                        //'stockable_type' => $request->input('stockable_type'),
+                        //'stockable_id' => $request->input('stockable_id'),
+                        //'referenceable_type' => $request->input('referenceable_type'),
+                        //'referenceable_id' => $request->input('referenceable_id'),
+                        //'activity_id' => $request->input('activity_id'),
+                        //'transaction_type_id' => $request->input('transaction_type_id'),
+                        'company_id' => $configuration_company_id,
+                        'strategic_business_unit_id' => $configuration_strategic_business_unit_id,
+                        'user_id_create ' => $configuration_user_id,
+                        //'date_time_create' => $request->input('date_time_create'),
+                    ]);
+                    
+                    if( $stockOutObject ){
+                        //
+                        $stockOutItemObjectArray = array(
+                            $stockOutObject->stockOutItems()->firstOrCreate([
+                                //'id' => $request->input('id'),
+                                'is_visible' => true,
+                                'is_active' => true,
+                                //'status_id' => $request->input('status_id'),
+                                'item_id' => $request->input('item_id'),
+                                //'unit_price' => floatval( $request->input('unit_price') ),
+                                'quantity' => floatval( $request->input('quantity') ),
+                                //'stockable_type' => $request->input('stockable_type'),
+                                //'stockable_id' => $request->input('stockable_id'),
+                                //'referenceable_type' => $request->input('referenceable_type'),
+                                //'referenceable_id' => $request->input('referenceable_id'),
+                                //'stock_out_id' => $request->input('stock_out_id'),
+                                //'date_time_create' => $request->input('date_time_create'),
+                            ])
+                        );
+                        $stockOutObject->stockOutItems()->saveMany( $stockOutItemObjectArray );
+                    }
+                }
+                
+                $data['sell_object'] = $sellObject;
 
                 unset($dataArray);
                 // Commit transaction!
