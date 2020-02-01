@@ -108,9 +108,9 @@ class StockIn extends Model
         static::saving(function( $model ){ /**/ });
     }
     
-    //one to many (inverse)
-    public function item(){
-        return $this->belongsTo('App\Item', 'item_id', 'id');
+    //one to many
+    public function stockInItems(){
+        return $this->hasMany('App\StockInItem', 'stock_in_id', 'id');
     }
     
     /*

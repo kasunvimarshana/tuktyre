@@ -32,6 +32,7 @@ class CreateStockInItemsTable extends Migration
             //$table->unsignedBigInteger('pk')->nullable()->default(0)->comment('comment');
             $table->boolean('is_visible')->nullable()->default(false)->comment('comment');//->index()
             $table->boolean('is_active')->nullable()->default(false)->comment('comment');//->index()
+            $table->boolean('is_countable')->nullable()->default(false)->comment('comment');//->index()
             //$table->string('code')->nullable()->comment('comment');//->index()
             $table->unsignedBigInteger('status_id')->unsigned()->nullable()->comment('comment');//->index()
             $table->unsignedBigInteger('item_id')->unsigned()->nullable()->comment('comment');//->index()

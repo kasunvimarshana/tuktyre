@@ -113,6 +113,11 @@ class StockInItem extends Model
         return $this->belongsTo('App\Item', 'item_id', 'id');
     }
     
+    //one to many (inverse)
+    public function stockIn(){
+        return $this->belongsTo('App\StockIn', 'stock_in_id', 'id');
+    }
+    
     /*
     //one to many (inverse)
     public function status(){

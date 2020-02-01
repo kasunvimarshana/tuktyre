@@ -36,7 +36,7 @@ use App\StockInItem as StockInItem;
 use App\Item as Item;
 use App\Enums\StatusEnum as StatusEnum;
 
-class SellController extends Controller
+class StockInController extends Controller
 {
     //
     protected $app_file_storage_uri;
@@ -157,5 +157,4 @@ class SellController extends Controller
         
         return redirect()->back();
     }
-    
 }

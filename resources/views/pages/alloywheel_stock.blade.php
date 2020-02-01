@@ -31,16 +31,16 @@
                   </tr>
                </thead>
                <tbody>
-                  <!-- @isset($stockInObjectArray) -->
-                    <!-- @foreach($stockInObjectArray as $key_stockInObject => $value_stockInObject) -->
+                  <!-- @isset($stockInItemObjectArray) -->
+                    <!-- @foreach($stockInItemObjectArray as $key_stockInItemObject => $value_stockInItemObject) -->
                         <tr>
                             <td>#</td>
                             <td>
-                                @isset($value_stockInObject->item)
-                                    {{ $value_stockInObject->item->name_display }}
+                                @isset($value_stockInItemObject->item)
+                                    {{ $value_stockInItemObject->item->name_display }}
                                 @endisset
                             </td>
-                            <td>{{ $value_stockInObject->quantity_sum }}</td>
+                            <td>{{ $value_stockInItemObject->quantity_sum }}</td>
                             <td> <a href=""><i class="fas fa-edit"></i></a></td>
                             <td> <a href=""><i class="fas fa-window-close"></i></a></td>
                         </tr>
@@ -54,7 +54,7 @@
                      <legend class="scheduler-border">
                         <h3>Alloy wheels stock</h3>
                      </legend>
-                     <form role="form" action="{!! route('stockInAlloyWheel.store', []) !!}" method="POST" class="" autocomplete="off" id="form1" enctype="multipart/form-data">
+                     <form role="form" action="{!! route('stockIn.store', []) !!}" method="POST" class="" autocomplete="off" id="form1" enctype="multipart/form-data">
                          <!-- --- -->
                           @csrf
                          <!-- --- -->
