@@ -118,6 +118,16 @@ class Vehicle extends Model
         return $this->hasMany('App\UserVehicle', 'vehicle_id', 'id');
     }
     
+    //many to many
+    public function users(){
+        /*
+        return $this->belongsToMany('App\User')->using('App\UserVehicle')
+            ->withPivot(['is_visible', 'is_active']);
+        */
+        return $this->belongsToMany('App\User', 'user_vehicles', 'vehicle_id', 'user_id', 'id', 'id')
+            ->withPivot(['is_visible', 'is_active']);
+    }
+    
     /*
     //one to many (inverse)
     public function status(){

@@ -32,6 +32,11 @@ use Illuminate\Support\Facades\Route;
 //use App\Http\Resources\CommonResponseResource as CommonResponseResource;
 //use App\Enums\HTTPStatusCodeEnum as HTTPStatusCodeEnum;
 use App\User as User;
+use App\Vehicle as Vehicle;
+use App\UserVehicle as UserVehicle;
+use App\Park as Park;
+use App\UserVehiclePark as UserVehiclePark;
+use App\Enums\StatusEnum as StatusEnum;
 
 class EmployeeController extends Controller
 {
@@ -128,11 +133,16 @@ class EmployeeController extends Controller
                 }
                 */
                 
+                $configuration_company_id = $request->session()->get('configuration_company_id', null);
+                $configuration_strategic_business_unit_id = $request->session()->get('configuration_strategic_business_unit_id', null);
+                $configuration_user_id = $request->session()->get('configuration_user_id', null);
+                
                 $dataArray = array(
                     //'id' => $request->input('id'),
                     'is_visible' => true,
                     'is_active' => true,
-                    'status_id' => $request->input('status_id'),
+                    //'status_id' => $request->input('status_id'),
+                    'status_id' => StatusEnum::ENUM_DEFAULT,
                     'code' => $request->input('code'),
                     'nic_number' => $request->input('nic_number'),
                     'driving_licence_number' => $request->input('driving_licence_number'),
@@ -140,13 +150,12 @@ class EmployeeController extends Controller
                     'name_display' => $request->input('name_display'),
                     'phone_number' => $request->input('phone_number'),
                     'email' => $request->input('email'),
-                    //'username' => $request->input('username'),
-                    'username' => $request->input('nic_number'),
+                    'username' => $request->input('username'),
                     'password' => Hash::make( $request->input('password') ),
                     //'remember_token' => $request->input('remember_token'),
                     //'image_uri' => $request->input('image_uri'),
-                    'company_id' => $request->input('company_id'),
-                    'strategic_business_unit_id' => $request->input('strategic_business_unit_id'),
+                    'company_id' => $configuration_company_id,
+                    'strategic_business_unit_id' => $configuration_strategic_business_unit_id,
                     //'code_active' => $request->input('code_active'),
                     'user_type_id' => $request->input('user_type_id'),
                     'vehicle_park_id' => $request->input('vehicle_park_id'),
@@ -155,7 +164,7 @@ class EmployeeController extends Controller
                     'latitude' => $request->input('latitude'),
                     'longitude' => $request->input('longitude'),
                     'description' => $request->input('description'),
-                    'user_id_create' => $request->input('user_id_create'),
+                    'user_id_create' => $configuration_user_id,
                     //'date_time_create' => $request->input('date_time_create'),
                 );
                 
@@ -205,6 +214,92 @@ class EmployeeController extends Controller
                     $userObject->employee()->saveMany( $employeeObjectArray );
                 }
                 
+                if( (($request->has('vehicle_id')) && ($request->filled('vehicle_id'))) ){
+                    if( $userObject ){
+                        $vehicle_licence_number = $request->input('vehicle_id');
+                        
+                        $vehicleObject = new Vehicle();
+                        
+                        $vehicleObject = $vehicleObject->firstOrCreate([
+                            //'id' => $request->input('id'),
+                            //'is_visible' => true,
+                            //'is_active' => true,
+                            //'is_tangible' => true,
+                            //'slug' => $request->input('slug'),
+                            //'code' => $request->input('code'),
+                            //'name' => $request->input('name'),
+                            //'name_display' => $request->input('name_display'),
+                            //'description' => $request->input('description'),
+                            //'image_uri' => $request->input('image_uri'),
+                            //'status_id' => $request->input('status_id'),
+                            //'vehicle_type_id' => $request->input('vehicle_type_id'),
+                            //'vehicle_licence_number' => $request->input('vehicle_licence_number'),
+                            'vehicle_licence_number' => $vehicle_licence_number,
+                            //'date_time_create' => $request->input('date_time_create'),
+                        ]);
+                        
+                        if( $vehicleObject ){
+                            $userVehicleObjectArray = array(
+                                $vehicleObject->userVehicles()->firstOrCreate([
+                                    //'id' => $request->input('id'),
+                                    //'is_visible' => true,
+                                    //'is_active' => true,
+                                    'user_id' => $userObject->id,
+                                    'vehicle_id' => $vehicleObject->id,
+                                    //'status_id' => $request->input('status_id'),
+                                    //'vehicle_licence_number' => $vehicle_licence_number,
+                                    //'date_time_create' => $request->input('date_time_create'),
+                                ])
+                            );
+
+                            $vehicleObject->userVehicles()->saveMany( $userVehicleObjectArray );
+                        }
+                    }
+                }
+                
+                if( (($request->has('park_id')) && ($request->filled('park_id'))) ){
+                    if( $userObject ){
+                        $code = $request->input('park_id');
+                        
+                        $parkObject = new Park();
+                        
+                        $parkObject = $parkObject->firstOrCreate([
+                            //'id' => $request->input('id'),
+                            //'is_visible' => true,
+                            //'is_active' => true,
+                            //'slug' => $request->input('slug'),
+                            //'code' => $request->input('code'),
+                            'code' => $code,
+                            //'name' => $request->input('name'),
+                            //'name_display' => $request->input('name_display'),
+                            //'address' => $request->input('address'),
+                            //'latitude' => $request->input('latitude'),
+                            //'longitude' => $request->input('longitude'),
+                            //'description' => $request->input('description'),
+                            //'image_uri' => $request->input('image_uri'),
+                            //'status_id' => $request->input('status_id'),
+                            //'park_id_parent' => $request->input('park_id_parent'),
+                            //'date_time_create' => $request->input('date_time_create'),
+                        ]);
+                        
+                        if( $parkObject ){
+                            $userVehicleParkObjectArray = array(
+                                $parkObject->userVehicleParks()->firstOrCreate([
+                                    //'id' => $request->input('id'),
+                                    //'is_visible' => true,
+                                    //'is_active' => true,
+                                    'user_id' => $userObject->id,
+                                    'park_id' => $parkObject->id,
+                                    //'status_id' => $request->input('status_id'),
+                                    //'date_time_create' => $request->input('date_time_create'),
+                                ])
+                            );
+
+                            $parkObject->userVehicleParks()->saveMany( $userVehicleParkObjectArray );
+                        }
+                    }
+                }
+                
                 $data['user_object'] = $userObject;
 
                 unset($dataArray);
@@ -225,6 +320,6 @@ class EmployeeController extends Controller
         //unset( $data );
         
         return redirect()->back();
-    }   
+    }
     
 }

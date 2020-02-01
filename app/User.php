@@ -151,6 +151,27 @@ class User extends Model
         return $this->hasMany('App\UserVehicle', 'user_id', 'id');
     }
     
+    //many to many
+    public function vehicles(){
+        /*
+        return $this->belongsToMany('App\Vehicle')->using('App\UserVehicle')
+            ->withPivot(['is_visible', 'is_active']);
+        */
+        return $this->belongsToMany('App\Vehicle', 'user_vehicles', 'user_id', 'vehicle_id', 'id', 'id')
+            ->withPivot(['is_visible', 'is_active']);
+    }
+    
+    //one to many
+    public function userVehicleParks(){
+        return $this->hasMany('App\UserVehiclePark', 'user_id', 'id');
+    }
+    
+    //many to many
+    public function parks(){
+        return $this->belongsToMany('App\Park', 'user_vehicle_parks', 'user_id', 'park_id', 'id', 'id')
+            ->withPivot(['is_visible', 'is_active']);
+    }
+    
     /*
     //one to many
     public function employees(){

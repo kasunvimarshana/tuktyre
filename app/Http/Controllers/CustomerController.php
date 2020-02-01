@@ -34,6 +34,8 @@ use Illuminate\Support\Facades\Route;
 use App\User as User;
 use App\Vehicle as Vehicle;
 use App\UserVehicle as UserVehicle;
+use App\Park as Park;
+use App\UserVehiclePark as UserVehiclePark;
 use App\Enums\StatusEnum as StatusEnum;
 
 class CustomerController extends Controller
@@ -212,26 +214,89 @@ class CustomerController extends Controller
                     $userObject->customer()->saveMany( $customerObjectArray );
                 }
                 
-                if( (($request->has('vehicle_licence_number')) && ($request->filled('vehicle_licence_number'))) ){
+                if( (($request->has('vehicle_id')) && ($request->filled('vehicle_id'))) ){
                     if( $userObject ){
-                        $vehicle_licence_number = $request->input('vehicle_licence_number');
+                        $vehicle_licence_number = $request->input('vehicle_id');
                         
                         $vehicleObject = new Vehicle();
                         
-                        $userVehicleObjectArray = array(
-                            $userObject->userVehicles()->firstOrCreate([
-                                //'id' => $request->input('id'),
-                                //'is_visible' => true,
-                                //'is_active' => true,
-                                //'user_id' => $userObject->user_id,
-                                //'vehicle_id' => $request->input('vehicle_id'),
-                                //'status_id' => $request->input('status_id'),
-                                'vehicle_licence_number' => $vehicle_licence_number,
-                                //'date_time_create' => $request->input('date_time_create'),
-                            ])
-                        );
+                        $vehicleObject = $vehicleObject->firstOrCreate([
+                            //'id' => $request->input('id'),
+                            //'is_visible' => true,
+                            //'is_active' => true,
+                            //'is_tangible' => true,
+                            //'slug' => $request->input('slug'),
+                            //'code' => $request->input('code'),
+                            //'name' => $request->input('name'),
+                            //'name_display' => $request->input('name_display'),
+                            //'description' => $request->input('description'),
+                            //'image_uri' => $request->input('image_uri'),
+                            //'status_id' => $request->input('status_id'),
+                            //'vehicle_type_id' => $request->input('vehicle_type_id'),
+                            //'vehicle_licence_number' => $request->input('vehicle_licence_number'),
+                            'vehicle_licence_number' => $vehicle_licence_number,
+                            //'date_time_create' => $request->input('date_time_create'),
+                        ]);
                         
-                        $userObject->userVehicles()->saveMany( $userVehicleObjectArray );
+                        if( $vehicleObject ){
+                            $userVehicleObjectArray = array(
+                                $vehicleObject->userVehicles()->firstOrCreate([
+                                    //'id' => $request->input('id'),
+                                    //'is_visible' => true,
+                                    //'is_active' => true,
+                                    'user_id' => $userObject->id,
+                                    'vehicle_id' => $vehicleObject->id,
+                                    //'status_id' => $request->input('status_id'),
+                                    //'vehicle_licence_number' => $vehicle_licence_number,
+                                    //'date_time_create' => $request->input('date_time_create'),
+                                ])
+                            );
+
+                            $vehicleObject->userVehicles()->saveMany( $userVehicleObjectArray );
+                        }
+                    }
+                }
+                
+                if( (($request->has('park_id')) && ($request->filled('park_id'))) ){
+                    if( $userObject ){
+                        $code = $request->input('park_id');
+                        
+                        $parkObject = new Park();
+                        
+                        $parkObject = $parkObject->firstOrCreate([
+                            //'id' => $request->input('id'),
+                            //'is_visible' => true,
+                            //'is_active' => true,
+                            //'slug' => $request->input('slug'),
+                            //'code' => $request->input('code'),
+                            'code' => $code,
+                            //'name' => $request->input('name'),
+                            //'name_display' => $request->input('name_display'),
+                            //'address' => $request->input('address'),
+                            //'latitude' => $request->input('latitude'),
+                            //'longitude' => $request->input('longitude'),
+                            //'description' => $request->input('description'),
+                            //'image_uri' => $request->input('image_uri'),
+                            //'status_id' => $request->input('status_id'),
+                            //'park_id_parent' => $request->input('park_id_parent'),
+                            //'date_time_create' => $request->input('date_time_create'),
+                        ]);
+                        
+                        if( $parkObject ){
+                            $userVehicleParkObjectArray = array(
+                                $parkObject->userVehicleParks()->firstOrCreate([
+                                    //'id' => $request->input('id'),
+                                    //'is_visible' => true,
+                                    //'is_active' => true,
+                                    'user_id' => $userObject->id,
+                                    'park_id' => $parkObject->id,
+                                    //'status_id' => $request->input('status_id'),
+                                    //'date_time_create' => $request->input('date_time_create'),
+                                ])
+                            );
+
+                            $parkObject->userVehicleParks()->saveMany( $userVehicleParkObjectArray );
+                        }
                     }
                 }
                 

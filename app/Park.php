@@ -33,7 +33,7 @@ class Park extends Model
      *
      * @var array
      */
-    protected $fillable = array();
+    protected $fillable = array('id', 'is_visible', 'is_active', 'slug', 'code', 'name', 'name_display', 'address', 'latitude', 'longitude', 'description', 'image_uri', 'status_id', 'park_id_parent', 'date_time_create');
 
     /**
      * The attributes that should be hidden for arrays.
@@ -106,6 +106,17 @@ class Park extends Model
         static::creating(function( $model ){ /**/ });
         
         static::saving(function( $model ){ /**/ });
+    }
+    
+    //one to many
+    public function userVehicleParks(){
+        return $this->hasMany('App\UserVehiclePark', 'park_id', 'id');
+    }
+    
+    //many to many
+    public function users(){
+        return $this->belongsToMany('App\User', 'user_vehicle_parks', 'park_id', 'user_id', 'id', 'id')
+            ->withPivot(['is_visible', 'is_active']);
     }
     
     /*

@@ -78,7 +78,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <p class="req-message">Required message</p>
-                        <input type="text" class="form-control" id="vehicle_licence_number" name="vehicle_licence_number" placeholder="Vehical number">
+                        <input type="text" class="form-control" id="vehicle_id" name="vehicle_id" placeholder="Vehical number">
                     </div>
                     <div class="form-group col-md-12">
                         <p class="req-message">Required message</p>
