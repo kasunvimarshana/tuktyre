@@ -31,14 +31,17 @@ use Illuminate\Support\Facades\Route;
 
 //use App\Http\Resources\CommonResponseResource as CommonResponseResource;
 //use App\Enums\HTTPStatusCodeEnum as HTTPStatusCodeEnum;
-use App\Item as Item;
+use App\Enums\StatusEnum as StatusEnum;
 use App\Vehicle as Vehicle;
 use App\UserVehicle as UserVehicle;
-use App\StockIn;
 use App\User;
 use App\Sell;
+use App\CreditSell;
+use App\CreditCustomerIn;
+use App\EmployeeCommissionIn;
+use App\SellItem;
 
-class SellAlloyWheelController extends Controller
+class CreditSellController extends Controller
 {
     //
     protected $app_file_storage_uri;
@@ -80,25 +83,38 @@ class SellAlloyWheelController extends Controller
             $sellObject = $sellObject->whereHas('sellItems', function($query){
                 //$query->where('key', '=', 'value');
                 $query = $query->whereHas('item', function($query){
-                    $query = $query->where('item_id_parent', '=', '4');
+                    //
                 });
             });
+            
+            $sellObject = $sellObject->whereHas('creditSell', function($query){
+                //$query->where('key', '=', 'value');
+                $query = $query->where('is_close', '=', false);
+                $query = $query->whereHas('creditCustomerIn', function($query){
+                    //$query = $query->where('is_close', '=', false);
+                });
+            });
+            
+            //vehicle
+            if( (($request->has('vehicle_id')) && ($request->filled('vehicle_id'))) ){
+                $vehicle_id = $request->input('vehicle_id');
+                $sellObject = $sellObject->whereHas('vehicle', function($query){
+                    //$query->where('key', '=', 'value');
+                    $query = $query->where('id', '=', $vehicle_id);
+                });
+            }
+            
+            //id
+            if( (($request->has('sell_id')) && ($request->filled('sell_id'))) ){
+                $sell_id = $request->input('sell_id');
+                $sellObject = $sellObject->where("id", "=", $sell_id);
+            }
             
             $sellObject = $sellObject->orderBy('id');
             $sellObject = $sellObject->with(['sellItems', 'creditSell', 'vehicle']);
             $sellObjectArray = $sellObject->get();
             
             $data['sellObjectArray'] = $sellObjectArray;
-            
-            /* select item data */
-            $itemObject = new Item();
-            $itemObject = $itemObject->where("is_visible", "=", true);
-            $itemObject = $itemObject->where("is_active", "=", true);
-            $itemObject = $itemObject->where('item_id_parent', '=', '4');
-            $itemObject = $itemObject->where('is_stockable', '=', true);
-            $itemObjectArray = $itemObject->get();
-            
-            $data['itemObjectArray'] = $itemObjectArray;
             
             /* select user data */
             $userObjectEmployee = new User();
@@ -145,11 +161,10 @@ class SellAlloyWheelController extends Controller
             DB::rollback();
         }
         
-        if(view()->exists('pages.alloywheel_sale')){
-            return View::make('pages.alloywheel_sale', $data);
+        if(view()->exists('pages.payments')){
+            return View::make('pages.payments', $data);
         }else{
             return redirect()->back()->withInput();
         }
     }
-    
 }

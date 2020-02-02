@@ -33,8 +33,8 @@ class EmployeeCommissionIn extends Model
      *
      * @var array
      */
-    protected $fillable = array();
-
+    protected $fillable = array('id', 'is_visible', 'is_active', 'status_id', 'user_id', 'referenceable_id', 'referenceable_type', 'amount', 'company_id', 'strategic_business_unit_id', 'activity_id', 'transaction_type_id', 'is_close', 'user_id_create', 'description', 'date_time_create');
+    
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -106,6 +106,14 @@ class EmployeeCommissionIn extends Model
         static::creating(function( $model ){ /**/ });
         
         static::saving(function( $model ){ /**/ });
+    }
+    
+    public function referenceable(){
+        return $this->morphTo();
+    }
+    
+    public function sells(){
+        return $this->morphMany('App\Sell', 'referenceable'); 
     }
     
     /*

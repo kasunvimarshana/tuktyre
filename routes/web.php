@@ -25,14 +25,13 @@ Route::group(['middleware' => []], function(){
     
     Route::post('stock-in-items/store', array('uses' => 'StockInController@store'))->name('stockIn.store');
     
-    Route::post('tyre/store', array('uses' => 'SellTyreController@store'))->name('sellTyre.store');
     Route::get('tyre', array('uses' => 'SellTyreController@create'))->name('sellTyre.create');
-    
-    Route::post('batteries/store', array('uses' => 'SellBatteryController@store'))->name('sellBattery.store');
     Route::get('batteries', array('uses' => 'SellBatteryController@create'))->name('sellBattery.create');
-    
-    Route::post('alloywheels/store', array('uses' => 'SellAlloyWheelController@store'))->name('sellAlloyWheel.store');
     Route::get('alloywheels', array('uses' => 'SellAlloyWheelController@create'))->name('sellAlloyWheel.create');
+    
+    Route::post('sells/store', array('uses' => 'SellController@store'))->name('sell.store');
+    
+    Route::get('payments', array('uses' => 'CreditSellController@create'))->name('creditSell.create');
 });
 
 Route::get('/signup', function () {
@@ -44,9 +43,6 @@ Route::get('/', function () {
 });
 Route::get('/sales', function () {
     return view('pages.sales');
-});
-Route::get('/payments', function () {
-    return view('pages.payments');
 });
 Route::get('/stock', function () {
     return view('pages.stock');

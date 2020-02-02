@@ -51,4 +51,11 @@ if(!function_exists('is_true')){
     }
 }
 
+/* is_true */
+if(!function_exists('str_pad_code_1')){
+    function str_pad_code_1($argument_string){
+        $argument_string = str_pad($argument_string, 5, "0", STR_PAD_LEFT);
+        return $argument_string;
+    }
+}
 ?>

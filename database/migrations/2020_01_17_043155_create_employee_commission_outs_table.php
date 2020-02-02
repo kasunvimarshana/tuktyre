@@ -47,6 +47,7 @@ class CreateEmployeeCommissionOutsTable extends Migration
             $table->unsignedBigInteger('transaction_type_id')->unsigned()->nullable()->comment('comment');//->index()
             //$table->double('installment_number')->nullable()->default(0)->comment('comment');//->index()
             $table->unsignedBigInteger('user_id_create')->unsigned()->nullable()->comment('comment');//->index()
+            $table->text('description')->nullable()->default(null)->comment('comment');
             $table->timestamp('date_time_create')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
         });
         

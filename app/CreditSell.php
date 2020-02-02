@@ -33,8 +33,8 @@ class CreditSell extends Model
      *
      * @var array
      */
-    protected $fillable = array();
-
+    protected $fillable = array('id', 'is_visible', 'is_active', 'sell_id', 'amount', 'status_id', 'is_close', 'date_time_create');
+    
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -106,6 +106,16 @@ class CreditSell extends Model
         static::creating(function( $model ){ /**/ });
         
         static::saving(function( $model ){ /**/ });
+    }
+    
+    //one to many (inverse)
+    public function sell(){
+        return $this->belongsTo('App\Sell', 'sell_id', 'id');
+    }
+    
+    //one to one (polymorphic)
+    public function creditCustomerIn(){
+        return $this->morphOne('App\CreditCustomerIn', 'referenceable', 'referenceable_type', 'referenceable_id', 'id');
     }
     
     /*

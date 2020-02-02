@@ -41,10 +41,10 @@
                                 <!-- @if($value_sellObject->sellItems) -->
                                 <!-- @foreach($value_sellObject->sellItems as $key_sellItemObject => $value_sellItemObject) -->
                                 <tr>
-                                    <td># {{ $value_sellObject->id }}</td>
+                                    <td># {{ str_pad_code_1( $value_sellObject->id ) }}</td>
                                     <td>
-                                        @if($value_sellObject->userVehicleCustomer)
-                                            {{ $value_sellObject->userVehicleCustomer->vehicle_licence_number }}
+                                        @if($value_sellObject->vehicle)
+                                            {{ $value_sellObject->vehicle->vehicle_licence_number }}
                                         @endif
                                     </td>
                                     <td>
@@ -72,7 +72,7 @@
                      <legend class="scheduler-border">
                         <h3>Alloy wheels issue</h3>
                      </legend>
-                     <form role="form" action="{!! route('sellAlloyWheel.store', []) !!}" method="POST" class="" autocomplete="off" id="form1" enctype="multipart/form-data">
+                     <form role="form" action="{!! route('sell.store', []) !!}" method="POST" class="" autocomplete="off" id="form1" enctype="multipart/form-data">
                          <!-- --- -->
                           @csrf
                          <!-- --- -->
@@ -82,11 +82,12 @@
                                <div class="form-group col-md-6">
                               <label>Emp No:</label>
                                     <select class="form-control select2" id="user_id_employee" name="user_id_employee">
-                                    <!-- @isset($userObjectEmployeeArray) -->
-                                    <!-- @foreach($userObjectEmployeeArray as $key_userObjectEmployee => $value_userObjectEmployee) -->
-                                        <option value="{!! $value_userObjectEmployee->id !!}">{{ $value_userObjectEmployee->name_display }}</option>
-                                    <!-- @endforeach -->
-                                    <!-- @endisset -->
+                                        <option value=""> Select </option>
+                                        <!-- @isset($userObjectEmployeeArray) -->
+                                        <!-- @foreach($userObjectEmployeeArray as $key_userObjectEmployee => $value_userObjectEmployee) -->
+                                            <option value="{!! $value_userObjectEmployee->id !!}">{{ $value_userObjectEmployee->name_display }}</option>
+                                        <!-- @endforeach -->
+                                        <!-- @endisset -->
                                     </select>
                               </div>
                               <div class="form-group col-md-6">
@@ -107,10 +108,11 @@
                                 
                               <div class="form-group col-md-6">
                               <label>Select vehicle No:</label>
-                                    <select class="form-control select2" id="user_vehicle_id_customer" name="user_vehicle_id_customer">
-                                        <!-- @isset($userVehicleObjectArray) -->
-                                        <!-- @foreach($userVehicleObjectArray as $key_userVehicleObject => $value_userVehicleObject) -->
-                                            <option value="{!! $value_userVehicleObject->id !!}">{{ $value_userVehicleObject->vehicle_licence_number }}</option>
+                                    <select class="form-control select2" id="vehicle_id_customer" name="vehicle_id_customer">
+                                        <option value=""> Select </option>
+                                        <!-- @isset($vehicleObjectArray) -->
+                                        <!-- @foreach($vehicleObjectArray as $key_vehicleObject => $value_vehicleObject) -->
+                                            <option value="{!! $value_vehicleObject->id !!}">{{ $value_vehicleObject->vehicle_licence_number }}</option>
                                         <!-- @endforeach -->
                                         <!-- @endisset -->
                                     </select>
@@ -133,11 +135,6 @@
                                     <div class="form-group">
                                        <input type="number" class="form-control" placeholder="Count" id="quantity" name="quantity">
                                     </div>
-                                    </div>
-                                <div class="form-group col-md-6">
-                                    
-                                 </div>
-                                 <div class="form-group col-md-6">
                                     <label for="exampleInputFile">Qty price</label>
                                     <div class="form-group">
                                        <input type="text" class="form-control price-align" placeholder="00.00" id="unit_price" name="unit_price">
@@ -157,6 +154,12 @@
                               </div>
                               <div class="form-group col-md-6 rem-padding">
                               <input type="text" class="form-control" id="amount_down_payment" name="amount_down_payment" placeholder="Down Payment">
+                              </div> 
+                              <div class="form-group col-md-6 rem-padding">
+                              <label for="exampleInputFile">Credit Amount</label>
+                              </div>
+                              <div class="form-group col-md-6 rem-padding">
+                              <input type="text" class="form-control price-align" id="amount_credit" name="amount_credit" placeholder="00.00" readonly>
                               </div>
                               <div class="form-group col-md-4 rem-padding">
                               <label for="exampleInputFile">No of Instalments</label>
@@ -183,4 +186,79 @@
             </div>
          </div>
 <!-- body | close  -->
+<script>
+    $(function(){
+        function calculateAmount(){
+            //
+            var quantity = $("#quantity");
+            var unit_price = $("#unit_price");
+            var amount = $("#amount");
+            var quantity_value = 0;
+            var unit_price_value = 0;
+            var amount_value = 0;
+            quantity_value = quantity.val();
+            unit_price_value = unit_price.val();
+            quantity_value = Number(quantity_value);
+            unit_price_value = Number(unit_price_value);
+            amount_value = (quantity_value * unit_price_value);
+            amount_value = amount_value.toFixed(2);
+            amount.val( amount_value );
+        }
+        
+        $("#quantity").on("change", function(event){
+            calculateAmount();
+        });
+        $("#unit_price").on("change", function(event){
+            calculateAmount();
+        });
+        calculateAmount();
+    });
+    $(function(){
+        function calculateInstallment(){
+            //
+            var installment_count = $("#installment_count");
+            var amount_down_payment = $("#amount_down_payment");
+            var installment_amount = $("#installment_amount");
+            var amount = $("#amount");
+            var amount_credit = $("#amount_credit");
+            var installment_count_value = 0;
+            var amount_down_payment_value = 0;
+            var installment_amount_value = 0;
+            var amount_value = 0;
+            var amount_credit_value = 0;
+            installment_count_value = installment_count.val();
+            amount_down_payment_value = amount_down_payment.val();
+            amount_value = amount.val();
+            installment_count_value = Number(installment_count_value);
+            amount_down_payment_value = Number(amount_down_payment_value);
+            amount_value = Number(amount_value);
+            if( (installment_count_value <= 0) ){
+               installment_count_value = 1;
+            }
+            amount_credit_value = (amount_value - amount_down_payment_value);
+            installment_amount_value = ((amount_credit_value) / installment_count_value);
+            installment_amount_value = installment_amount_value.toFixed(2);
+            amount_credit_value = amount_credit_value.toFixed(2);
+            installment_amount.val( installment_amount_value );
+            amount_credit.val(amount_credit_value);
+        }
+        
+        $("#installment_count").on("change", function(event){
+            calculateInstallment();
+        });
+        $("#amount_down_payment").on("change", function(event){
+            calculateInstallment();
+        });
+        $("#amount").on("change", function(event){
+            calculateInstallment();
+        });
+        $("#quantity").on("change", function(event){
+            calculateInstallment();
+        });
+        $("#unit_price").on("change", function(event){
+            calculateInstallment();
+        });
+        calculateInstallment();
+    });
+</script>
 @stop

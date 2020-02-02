@@ -41,6 +41,9 @@ use App\Vehicle as Vehicle;
 use App\UserVehicle as UserVehicle;
 use App\User;
 use App\Sell;
+use App\CreditSell;
+use App\CreditCustomerIn;
+use App\EmployeeCommissionIn;
 use App\SellItem;
 
 class SellController extends Controller
@@ -101,7 +104,7 @@ class SellController extends Controller
                 $configuration_user_id = $request->session()->get('configuration_user_id', null);
                 
                 $dataArray = array(
-                    'id' => $request->input('id'),
+                    //'id' => $request->input('id'),
                     'is_visible' => true,
                     'is_active' => true,
                     //'code' => $request->input('code'),
@@ -114,7 +117,7 @@ class SellController extends Controller
                     'user_id_create' => $configuration_user_id,
                     'user_id_customer' => $request->input('user_id_customer'),
                     'user_id_employee' => $request->input('user_id_employee'),
-                    'user_vehicle_id_customer' => $request->input('user_vehicle_id_customer'),
+                    'vehicle_id_customer' => $request->input('vehicle_id_customer'),
                     'description' => $request->input('description'),
                     'company_id' => $configuration_company_id,
                     'strategic_business_unit_id' => $configuration_strategic_business_unit_id,
@@ -147,7 +150,7 @@ class SellController extends Controller
                 if( $sellObject ){
                     //
                     $stockOutObject = StockOut::create([
-                        'id' => $request->input('id'),
+                        //'id' => $request->input('id'),
                         'is_visible' => true,
                         'is_active' => true,
                         //'status_id' => $request->input('status_id'),
@@ -179,12 +182,75 @@ class SellController extends Controller
                                 //'stockable_id' => $request->input('stockable_id'),
                                 //'referenceable_type' => $request->input('referenceable_type'),
                                 //'referenceable_id' => $request->input('referenceable_id'),
-                                //'stock_out_id' => $request->input('stock_out_id'),
+                                'stock_out_id' => $stockOutObject->id,
                                 //'date_time_create' => $request->input('date_time_create'),
                             ])
                         );
                         $stockOutObject->stockOutItems()->saveMany( $stockOutItemObjectArray );
                     }
+                }
+                
+                if( $sellObject && (floatval( $sellObject->amount_credit ) > 0)){
+                    //
+                    $creditSellObject = $sellObject->creditSell()->firstOrCreate([
+                        //'id' => $request->input('id'),
+                        'is_visible' => true,
+                        'is_active' => true,
+                        'sell_id' => $sellObject->id,
+                        'amount' => floatval( $request->input('amount_credit') ),
+                        //'status_id' => $request->input('status_id'),
+                        //'is_close' => is_true( $request->input('is_close') ),
+                        //'date_time_create' => $request->input('date_time_create'),
+                    ]);
+                    $sellObject->creditSell()->save( $creditSellObject );
+                    
+                    if( $creditSellObject ){
+                        //
+                        $creditCustomerInObject = $creditSellObject->creditCustomerIn()->firstOrCreate([
+                            //'id' => $request->input('id'),
+                            'is_visible' => true,
+                            'is_active' => true,
+                            //'status_id' => $request->input('status_id'),
+                            'status_id' => StatusEnum::ENUM_DEFAULT,
+                            'user_id' => $request->input('user_id'),
+                            //'referenceable_type' => $request->input('referenceable_type'),
+                            //'referenceable_id' => $request->input('referenceable_id'),
+                            'amount' => floatval( $request->input('amount_credit') ),
+                            'company_id' => $configuration_company_id,
+                            'strategic_business_unit_id' => $configuration_strategic_business_unit_id,
+                            //'activity_id' => $request->input('activity_id'),
+                            //'transaction_type_id' => $request->input('transaction_type_id'),
+                            //'is_close' => is_true( $request->input('is_close') ),
+                            'installment_count' => floatval( $request->input('installment_count') ),
+                            //'installment_amount' => floatval( $request->input('installment_amount') ),
+                            'user_id_create' => $configuration_user_id,
+                            //'date_time_create' => $request->input('date_time_create'),
+                        ]);
+                        $creditSellObject->creditCustomerIn()->save( $creditCustomerInObject );
+                    }
+                }
+                
+                if( $sellObject ){
+                    //
+                    $employeeCommissionInObject = $sellObject->employeeCommissionIn()->firstOrCreate([
+                        //'id' => $request->input('id'),
+                        'is_visible' => true,
+                        'is_active' => true,
+                        //'status_id' => $request->input('status_id'),
+                        'user_id' => StatusEnum::ENUM_DEFAULT,
+                        //'referenceable_id' => $request->input('referenceable_id'),
+                        //'referenceable_type' => $request->input('referenceable_type'),
+                        'amount' => (floatval( $request->input('amount') ) * (10/100)),
+                        'company_id' => $configuration_company_id,
+                        'strategic_business_unit_id' => $configuration_strategic_business_unit_id,
+                        'activity_id' => $configuration_strategic_business_unit_id,
+                        //'transaction_type_id' => $request->input('transaction_type_id'),
+                        //'is_close' => is_true( $request->input('is_close') ),
+                        'user_id_create' => $configuration_user_id,
+                        'description' => floatval( $request->input('description') ),
+                        'date_time_create' => floatval( $request->input('date_time_create') ),
+                    ]);
+                    $sellObject->employeeCommissionIn()->save( $employeeCommissionInObject );
                 }
                 
                 $data['sell_object'] = $sellObject;

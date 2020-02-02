@@ -94,7 +94,7 @@ class StockInController extends Controller
                 $configuration_user_id = $request->session()->get('configuration_user_id', null);
                 
                 $dataArray = array(
-                    'id' => $request->input('id'),
+                    //'id' => $request->input('id'),
                     'is_visible' => true,
                     'is_active' => true,
                     //'status_id' => $request->input('status_id'),

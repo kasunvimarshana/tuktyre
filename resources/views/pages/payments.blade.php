@@ -54,20 +54,33 @@
                            </tr>
                         </thead>
                         <tbody>
-                           <tr class="danger">
-                              <td>748</td>
-                              <td>Tyre</td>
-                              <td>DSI - 450/12</td>
-                              <td>2000</td>
-                              <td>Not Completed</td>
-                           </tr>
-                           <tr class="success">
-                              <td>845</td>
-                              <td>Battery</td>
-                              <td>Exide - 9v 65ah</td>
-                              <td>00</td>
-                              <td>Completed</td>
-                           </tr>
+                           <!-- @isset($sellObjectArray) -->
+                            <!-- @foreach($sellObjectArray as $key_sellObject => $value_sellObject) -->
+                                <!-- @if($value_sellObject->sellItems) -->
+                                <!-- @foreach($value_sellObject->sellItems as $key_sellItemObject => $value_sellItemObject) -->
+                                <tr class="danger-success">
+                                    <td># {{ $value_sellObject->id }}</td>
+                                    <td>
+                                        @if($value_sellObject->vehicle)
+                                            {{ $value_sellObject->vehicle->vehicle_licence_number }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($value_sellItemObject->item)
+                                            {{ $value_sellItemObject->item->name }}
+                                        @endif
+                                    </td>
+                                    <td>{{ $value_sellItemObject->quantity }}</td>
+                                    <td>{{ number_format(($value_sellItemObject->quantity * $value_sellItemObject->quantity)) }}</td>
+                                    <td>{{ $value_sellObject->amount_down_payment }}</td>
+                                    <td> <a href=""><i class="fas fa-edit"></i></a></td>
+                                    <td> <a href=""><i class="fas fa-window-close"></i></a></td>
+                                </tr>
+                                <!-- @endforeach -->
+                                <!-- @endif -->
+                            <!-- @endforeach -->
+                            <!-- @endisset -->
+                         </tbody>
                      </table>
                   </fieldset>
                </div>
@@ -79,42 +92,53 @@
                      </legend>
                      <form role="form">
                         <div class="card-body">
-                           <div class="row">
-                           <div class="form-group col-md-6">
-                              <label>Select vehicle No:</label>
-                                    <select class="form-control select2" >
-                                       <option selected="selected">WP BFT-0894 | 922251568V</option>
-                                       <option>WP JD-1485 | 882251568V</option>
-                                       <option>WP GT-5698 | 722251568V</option>
-                                       <option>CP YT-1498 | 622251568V</option>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Select vehicle No:</label>
+                                    <select class="form-control select2" id="vehicle_id" name="vehicle_id">
+                                        <option value=""> Select </option>
+                                        <!-- @isset($vehicleObjectArray) -->
+                                        <!-- @foreach($vehicleObjectArray as $key_vehicleObject => $value_vehicleObject) -->
+                                            <option value="{!! $value_vehicleObject->id !!}">{{ $value_vehicleObject->vehicle_licence_number }}</option>
+                                        <!-- @endforeach -->
+                                        <!-- @endisset -->
                                     </select>
-                              </div>
-                           <div class="form-group col-md-6">
-                              <label>Emp No:</label>
-                                    <select class="form-control select2" >
-                                       <option selected="selected">Dealer</option>
-                                       <option>emp-001</option>
-                                       <option>emp-002</option>
-                                       <option>emp-003</option>
-                                       <option>emp-004</option>
-                                    </select>
-                              </div>
-                              
-                              <div class="form-group col-md-6">
-                              <label>Invoice No:</label>
-                                    <select class="form-control select2" >
-                                       <option selected="selected">748</option>
-                                       <option>845</option>
-                                    </select>
-                              </div>
-                     
-                              
-                              
-                              
-
-
-
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <br/>
+                                    <button type="submit" name="filter_by_vehicle" value="filter_by_vehicle" class="btn btn-danger">Check</button>
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Invoice No:</label>
+                                    <select class="form-control select2" id="sell_id" name="sell_id">
+                                        <option value=""> Select </option>
+                                        <!-- @isset($sellObjectArray) -->
+                                        <!-- @foreach($sellObjectArray as $key_sellObject => $value_sellObject) -->
+                                            <option value="{!! $value_sellObject->id !!}">{{ str_pad_code_1( $value_sellObject->id ) }}</option>
+                                        <!-- @endforeach -->
+                                        <!-- @endisset -->
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <br/>
+                                    <button type="submit" name="filter_by_code" value="filter_by_code" class="btn btn-danger">Check</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Emp No:</label>
+                                    <select class="form-control select2" id="user_id_employee" name="user_id_employee">
+                                        <option selected="selected">Dealer</option>
+                                        <option>emp-001</option>
+                                        <option>emp-002</option>
+                                        <option>emp-003</option>
+                                        <option>emp-004</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
                             <hr>
                             <div class="row">
                             <div class="form-group col-md-6">
@@ -123,14 +147,14 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="datepicker">
+                                    <input type="text" class="form-control pull-right" id="datepicker" id="date_time_create" name="date_time_create">
                                     </div>
                                     <!-- /.input group -->
                                 </div>
                                  <div class="form-group col-md-6">
                                     <label for="exampleInputFile">Amount</label>
                                     <div class="form-group">
-                                       <input type="number" class="form-control" placeholder="00.00">
+                                       <input type="number" class="form-control" placeholder="00.00" id="amount" name="amount">
                                     </div>
                                     </div>
                                  
@@ -141,25 +165,33 @@
                               <label for="exampleInputFile">Due Balance</label>
                               </div>
                               <div class="form-group col-md-6 rem-padding">
-                              <input type="text" class="form-control price-align" id="cus_name" placeholder="00.00" readonly>
+                              <input type="text" class="form-control price-align" id="amount_due" name="amount_due" placeholder="00.00" readonly>
                               </div>
                               <div class="form-group col-md-6 rem-padding">
                               <label for="exampleInputFile">Paid</label>
                               </div>
                               <div class="form-group col-md-6 rem-padding">
-                              <input type="text" class="form-control price-align" id="cus_name" placeholder="00.00" readonly>
+                              <input type="text" class="form-control price-align" id="amount_pay" name="amount_pay" placeholder="00.00" readonly>
                               </div>
                               <div class="form-group col-md-6 rem-padding">
                               <label for="exampleInputFile">Balance</label>
                               </div>
                               <div class="form-group col-md-6 rem-padding">
-                                 <input type="text" class="form-control price-align" id="cus_name" placeholder="00.00" readonly>
+                                 <input type="text" class="form-control price-align" id="amount_balance" name="amount_balance" placeholder="00.00" readonly>
                               </div>
+                              <!-- -->
+                              <div class="form-group col-md-6 rem-padding">
+                              <label for="exampleInputFile">Close</label>
+                              </div>
+                              <div class="form-group col-md-6 rem-padding">
+                                 <input type="checkbox" class="form-control checkbox" id="is_close" name="is_close" value="is_close">
+                              </div>
+                              <!-- -->
                            </div>
                         </div>
                         <div class="card-footer col-md-6"></div>
                            <div class="card-footer col-md-6 btn-area">
-                              <button type="submit" class="btn btn-danger">Cancel</button>
+                              <button type="reset" class="btn btn-danger">Cancel</button>
                               <button type="submit" class="btn btn-success">Submit</button>
                            </div>
                      </form>

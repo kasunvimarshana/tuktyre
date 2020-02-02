@@ -33,7 +33,7 @@ class Sell extends Model
      *
      * @var array
      */
-    protected $fillable = array('id', 'is_visible', 'is_active', 'code', 'status_id', 'amount', 'amount_discount', 'amount_down_payment', 'amount_credit', 'user_id_create', 'user_id_customer', 'user_id_employee', 'user_vehicle_id_customer', 'description', 'company_id', 'strategic_business_unit_id', 'date_time_create');
+    protected $fillable = array('id', 'is_visible', 'is_active', 'code', 'status_id', 'amount', 'amount_discount', 'amount_down_payment', 'amount_credit', 'user_id_create', 'user_id_customer', 'user_id_employee', 'vehicle_id_customer', 'description', 'company_id', 'strategic_business_unit_id', 'date_time_create');
 
     /**
      * The attributes that should be hidden for arrays.
@@ -114,8 +114,23 @@ class Sell extends Model
     }
     
     //one to many (inverse)
-    public function userVehicleCustomer(){
-        return $this->belongsTo('App\UserVehicle', 'user_vehicle_id_customer', 'id');
+    public function vehicle(){
+        return $this->belongsTo('App\Vehicle', 'vehicle_id_customer', 'id');
+    }
+    
+    //one to one
+    public function creditSell(){
+        return $this->hasOne('App\CreditSell', 'sell_id', 'id');
+    }
+    
+    //one to one (polymorphic)
+    public function creditCustomerIn(){
+        return $this->morphOne('App\CreditCustomerIn', 'referenceable', 'referenceable_type', 'referenceable_id', 'id');
+    }
+    
+    //one to one (polymorphic)
+    public function employeeCommissionIn(){
+        return $this->morphOne('App\EmployeeCommissionIn', 'referenceable', 'referenceable_type', 'referenceable_id', 'id');
     }
     
     /*

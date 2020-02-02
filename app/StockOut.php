@@ -108,6 +108,11 @@ class StockOut extends Model
         static::saving(function( $model ){ /**/ });
     }
     
+    //one to many
+    public function stockOutItems(){
+        return $this->hasMany('App\StockOutItem', 'stock_out_id', 'id');
+    }
+    
     /*
     //one to many (inverse)
     public function status(){

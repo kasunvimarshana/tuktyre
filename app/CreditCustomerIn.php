@@ -33,8 +33,8 @@ class CreditCustomerIn extends Model
      *
      * @var array
      */
-    protected $fillable = array();
-
+    protected $fillable = array('id', 'is_visible', 'is_active', 'status_id', 'user_id', 'referenceable_type', 'referenceable_id', 'amount', 'company_id', 'strategic_business_unit_id', 'activity_id', 'transaction_type_id', 'is_close', 'installment_count', 'installment_amount', 'user_id_create', 'date_time_create');
+    
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -106,6 +106,14 @@ class CreditCustomerIn extends Model
         static::creating(function( $model ){ /**/ });
         
         static::saving(function( $model ){ /**/ });
+    }
+    
+    public function referenceable(){
+        return $this->morphTo();
+    }
+    
+    public function creditSells(){
+        return $this->morphMany('App\CreditSell', 'referenceable'); 
     }
     
     /*

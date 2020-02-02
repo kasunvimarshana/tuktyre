@@ -45,13 +45,9 @@ class CreateEmployeeCommissionInsTable extends Migration
             $table->unsignedBigInteger('activity_id')->unsigned()->nullable()->comment('comment');//->index()
             $table->unsignedBigInteger('transaction_type_id')->unsigned()->nullable()->comment('comment');//->index()
             $table->boolean('is_close')->nullable()->default(false)->comment('comment');//->index()
-            $table->double('installment_count')->nullable()->default(0)->comment('comment');//->index()
-            $table->double('installment_amount')->nullable()->default(0)->comment('comment');//->index()
             $table->unsignedBigInteger('user_id_create')->unsigned()->nullable()->comment('comment');//->index()
+            $table->text('description')->nullable()->default(null)->comment('comment');
             $table->timestamp('date_time_create')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
-            //$table->timestamp('date_time_deadline')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
-            //$table->timestamp('date_time_remind')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
-            //$table->timestamp('date_time_close')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrent()->comment('comment');//->index()
         });
         
         Schema::table($this->table_name_1, function($table) {
