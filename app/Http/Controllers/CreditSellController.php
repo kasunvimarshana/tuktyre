@@ -151,6 +151,19 @@ class CreditSellController extends Controller
             });
             $vehicleObjectArray = $vehicleObject->get();
             
+            if( (($request->has('sell_id')) && ($request->filled('sell_id'))) ){
+                $sell_id = $request->input('sell_id');
+                $sellObject = new Sell();
+                $sellObject = $sellObject->where("id", "=", $sell_id);
+                $sellObject = $sellObject->first();
+                
+                $data['sellObject'] = $sellObject;
+                if( $sellObject ){
+                    $userCustomerObject = $sellObject->userCustomer();
+                    $data['userCustomerObject'] = $userCustomerObject;
+                }
+            }
+            
             $data['vehicleObjectArray'] = $vehicleObjectArray;
             
             //unset($dataArray);

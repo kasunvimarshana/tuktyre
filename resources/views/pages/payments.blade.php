@@ -22,22 +22,81 @@
                      <legend class="scheduler-border">
                         <h3>Details of Purchased items</h3>
                      </legend>
-                     <div class="form-group col-md-6">
-                           <label>NIC No: 922251568V</label>
-                           <br>
-                            <label>Vehicle No: WP BFT-0894</label>
+                        <div class="form-group col-md-6">
+                            @isset( $sellObject )
+                                @php
+                                    $userCustomerObject = $sellObject->userCustomer;
+                                    $vehicleCustomerObject = $sellObject->vehicleCustomer;
+                                    $parkObjectCustomer = null;
+                                    if( $userCustomerObject ){
+                                        $parkObjectCustomer = $userCustomerObject->parks()->first();
+                                    }
+                                @endphp
+                            <label>NIC No: 
+                                <span>
+                                    @isset( $userCustomerObject )
+                                        {{ $userCustomerObject->nic_number }}
+                                    @endisset
+                                </span>
+                            </label>
                             <br>
-                            <label>Client name: W.A.S. Kamal Udawaththa</label>
+                            <label>Vehicle No: 
+                                <span>
+                                    @isset( $vehicleCustomerObject )
+                                        {{ $vehicleCustomerObject->vehicle_licence_number }}
+                                    @endisset
+                                </span>
+                            </label>
                             <br>
-                            <label>Contact No : 070 571 7130</label>
+                            <label>Client name: 
+                                <span>
+                                    @isset( $userCustomerObject )
+                                        {{ $userCustomerObject->name_full }}
+                                    @endisset
+                                </span>
+                            </label>
                             <br>
-                            <label>Address : 135/A Kandy Rd, Kalagedihena</label>
+                            <label>Contact No : 
+                                <span>
+                                    @isset( $userCustomerObject )
+                                        {{ $userCustomerObject->phone_number }}
+                                    @endisset
+                                </span>
+                            </label>
                             <br>
-                            <label>Park name : Kalagedihena</label>
-                            
+                            <label>Address : 
+                                <span>
+                                    @isset( $userCustomerObject )
+                                        {{ $userCustomerObject->address }}
+                                    @endisset
+                                </span>
+                            </label>
+                            <br>
+                            <label>Park name : 
+                                <span>
+                                    @isset( $parkObjectCustomer )
+                                        {{ $parkObjectCustomer->name }}
+                                    @endisset
+                                </span>
+                            </label>
+                            @endisset
                         </div>                                                       
-                            <div class="form-group col-md-6">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.7198098677977!2d80.02936101477422!3d7.158357094831363!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2e33561434165%3A0x1185bf52c19c8623!2sNaiwala%20Roundabout%2C%20Veyangoda%2011100!5e0!3m2!1sen!2slk!4v1577288284495!5m2!1sen!2slk" width="100%" height="130" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                        <div class="form-group col-md-6"> 
+                            @isset( $sellObject )
+                            @php
+                                $latitude = 0;
+                                $longitude = 0;
+                                $userCustomerObject = $sellObject->userCustomer;
+                                if( $userCustomerObject ){
+                                    $latitude = $userCustomerObject->latitude;
+                                    $longitude = $userCustomerObject->longitude;
+                                }
+                                $latitude = floatval( $latitude );
+                                $longitude = floatval( $longitude );
+                            @endphp
+                            <iframe src="https://maps.google.com/maps?q={!! $latitude !!}, {!! $longitude !!}&maptype=roadmap&hl=es;z=14&iwloc=0&output=embed" width="100%" height="130" frameborder="0" style="border:0;" allowfullscreen>
+                            </iframe>
+                            @endisset      
                         </div>
                         <hr>
                         <br>
@@ -59,15 +118,18 @@
                                 <!-- @if($value_sellObject->sellItems) -->
                                 <!-- @foreach($value_sellObject->sellItems as $key_sellItemObject => $value_sellItemObject) -->
                                 <tr class="danger-success">
-                                    <td># {{ $value_sellObject->id }}</td>
-                                    <td>
-                                        @if($value_sellObject->vehicle)
-                                            {{ $value_sellObject->vehicle->vehicle_licence_number }}
-                                        @endif
-                                    </td>
+                                    <td># {{ str_pad_code_1( $value_sellObject->id ) }}</td>
                                     <td>
                                         @if($value_sellItemObject->item)
                                             {{ $value_sellItemObject->item->name }}
+                                        @endif
+                                    </td>
+                                    <td>{{ $value_sellObject->description }}</td>
+                                    
+                                    
+                                    <td>
+                                        @if($value_sellObject->vehicle)
+                                            {{ $value_sellObject->vehicle->vehicle_licence_number }}
                                         @endif
                                     </td>
                                     <td>{{ $value_sellItemObject->quantity }}</td>

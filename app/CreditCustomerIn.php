@@ -108,12 +108,27 @@ class CreditCustomerIn extends Model
         static::saving(function( $model ){ /**/ });
     }
     
+    //one to many (inverse) (polymorphic)
     public function referenceable(){
         return $this->morphTo();
     }
     
+    //one to many (inverse) (polymorphic)
     public function creditSells(){
+        return $this->morphedByMany('App\Post', 'taggable');
+    }
+    
+    //one to many
+    public function creditCustomerOuts(){
+        return $this->hasMany('App\CreditCustomerOut', 'credit_customer_in_id', 'id');
+    }
+    
+    public function amountDue(){
         return $this->morphMany('App\CreditSell', 'referenceable'); 
+    }
+    
+    public function total_goals(){
+        return $this->statlines()->sum('goals');
     }
     
     /*

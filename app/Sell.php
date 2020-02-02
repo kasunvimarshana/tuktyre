@@ -114,8 +114,23 @@ class Sell extends Model
     }
     
     //one to many (inverse)
-    public function vehicle(){
+    public function vehicleCustomer(){
         return $this->belongsTo('App\Vehicle', 'vehicle_id_customer', 'id');
+    }
+    
+    //one to many (inverse)
+    public function userCustomer(){
+        return $this->belongsTo('App\User', 'user_id_customer', 'id');
+    }
+    
+    //one to many (inverse)
+    public function userEmployee(){
+        return $this->belongsTo('App\User', 'user_id_employee', 'id');
+    }
+    
+    //one to many (inverse)
+    public function userCreate(){
+        return $this->belongsTo('App\User', 'user_id_create', 'id');
     }
     
     //one to one
