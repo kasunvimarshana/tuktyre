@@ -1,0 +1,66 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
+class CreateStocksTable extends Migration
+{
+    protected $table_name_1 = "stocks";
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up(){
+        DB::statement($this->dropView());
+        DB::statement($this->createView());
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        DB::statement($this->dropView());
+    }
+    
+    private function createView(){
+        return <<<SQL
+            CREATE VIEW {$this->table_name_1} AS
+            SELECT
+                stock_in_items.id AS stock_in_items_id,
+                stock_in_items.is_visible AS stock_in_items_is_visible,
+                stock_in_items.is_active AS stock_in_items_is_active,
+                stock_in_items.is_countable AS stock_in_items_is_countable,
+                stock_in_items.status_id AS stock_in_items_status_id,
+                stock_in_items.item_id AS stock_in_items_item_id,
+                stock_in_items.unit_price AS stock_in_items_unit_price,
+                stock_in_items.quantity AS stock_in_items_quantity,
+                stock_in_items.stockable_id AS stock_in_items_stockable_id,
+                stock_in_items.stockable_type AS stock_in_items_stockable_type,
+                stock_in_items.referenceable_id AS stock_in_items_referenceable_id,
+                stock_in_items.referenceable_type AS stock_in_items_referenceable_type,
+                stock_in_items.stock_in_id AS stock_in_items_stock_in_id,
+                stock_in_items.date_time_create AS stock_in_items_date_time_create
+            FROM
+                stock_ins AS stock_ins,
+                stock_in_items AS stock_in_items
+            WHERE
+                stock_ins.id = stock_in_items.stock_in_id
+            ORDER BY
+                stock_in_items_id
+        SQL;
+    }
+
+    private function dropView(){
+        return <<<SQL
+        DROP VIEW IF EXISTS {$this->table_name_1};
+        SQL;
+    }
+}

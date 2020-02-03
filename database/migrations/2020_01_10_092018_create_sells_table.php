@@ -43,7 +43,7 @@ class CreateSellsTable extends Migration
             $table->unsignedBigInteger('user_id_customer')->unsigned()->nullable()->comment('comment');//->index()
             $table->unsignedBigInteger('user_id_employee')->unsigned()->nullable()->comment('comment');//->index()
             //$table->unsignedBigInteger('vehicle_id_customer')->unsigned()->nullable()->comment('comment');//->index()
-            $table->unsignedBigInteger('vehicle_id_customer')->unsigned()->nullable()->comment('comment');//->index()
+            $table->unsignedBigInteger('vehicle_id')->unsigned()->nullable()->comment('comment');//->index()
             $table->text('description')->nullable()->default(null)->comment('comment');
             $table->unsignedBigInteger('company_id')->unsigned()->nullable()->comment('comment');//->index()
             $table->unsignedBigInteger('strategic_business_unit_id')->unsigned()->nullable()->comment('comment');//->index()

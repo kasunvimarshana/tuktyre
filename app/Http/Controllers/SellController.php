@@ -117,7 +117,7 @@ class SellController extends Controller
                     'user_id_create' => $configuration_user_id,
                     'user_id_customer' => $request->input('user_id_customer'),
                     'user_id_employee' => $request->input('user_id_employee'),
-                    'vehicle_id_customer' => $request->input('vehicle_id_customer'),
+                    'vehicle_id' => $request->input('vehicle_id'),
                     'description' => $request->input('description'),
                     'company_id' => $configuration_company_id,
                     'strategic_business_unit_id' => $configuration_strategic_business_unit_id,
@@ -258,7 +258,7 @@ class SellController extends Controller
                 unset($dataArray);
                 // Commit transaction!
                 DB::commit();
-            }catch(Exception $e){
+            }catch(Exception $e){dd($e);
                 // Rollback transaction!
                 DB::rollback(); 
                 //return redirect()->back()->withInput();

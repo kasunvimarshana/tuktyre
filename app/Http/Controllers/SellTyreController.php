@@ -140,7 +140,7 @@ class SellTyreController extends Controller
             //unset($dataArray);
             // Commit transaction!
             DB::commit();
-        }catch(Exception $e){
+        }catch(Exception $e){dd($e);
             // Rollback transaction!
             DB::rollback();
         }

@@ -33,7 +33,7 @@ class Sell extends Model
      *
      * @var array
      */
-    protected $fillable = array('id', 'is_visible', 'is_active', 'code', 'status_id', 'amount', 'amount_discount', 'amount_down_payment', 'amount_credit', 'user_id_create', 'user_id_customer', 'user_id_employee', 'vehicle_id_customer', 'description', 'company_id', 'strategic_business_unit_id', 'date_time_create');
+    protected $fillable = array('id', 'is_visible', 'is_active', 'code', 'status_id', 'amount', 'amount_discount', 'amount_down_payment', 'amount_credit', 'user_id_create', 'user_id_customer', 'user_id_employee', 'vehicle_id', 'description', 'company_id', 'strategic_business_unit_id', 'date_time_create');
 
     /**
      * The attributes that should be hidden for arrays.
@@ -114,8 +114,8 @@ class Sell extends Model
     }
     
     //one to many (inverse)
-    public function vehicleCustomer(){
-        return $this->belongsTo('App\Vehicle', 'vehicle_id_customer', 'id');
+    public function vehicle(){
+        return $this->belongsTo('App\Vehicle', 'vehicle_id', 'id');
     }
     
     //one to many (inverse)

@@ -108,7 +108,7 @@
                                 
                               <div class="form-group col-md-6">
                               <label>Select vehicle No:</label>
-                                    <select class="form-control select2" id="vehicle_id_customer" name="vehicle_id_customer">
+                                    <select class="form-control select2" id="vehicle_id" name="vehicle_id">
                                         <option value=""> Select </option>
                                         <!-- @isset($vehicleObjectArray) -->
                                         <!-- @foreach($vehicleObjectArray as $key_vehicleObject => $value_vehicleObject) -->
